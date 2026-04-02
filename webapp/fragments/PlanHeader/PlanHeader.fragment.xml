@@ -1,0 +1,203 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="com.kcc.promoplan.controls"
+>
+    <f:SimpleForm
+        editable="true"
+        visible="{= ${appView>/isNewMode} || ${appView>/isEditMode} }"
+        layout="ColumnLayout"
+        columnsM="2"
+        columnsL="3"
+        columnsXL="3"
+    >
+        <core:Title text="" />
+
+        <m:Label text="{i18n>planCustomer}" />
+
+        <custom:CustomerHierarchy
+            required="true"
+            id="idPHCustomerHeirarchy"
+            vkorg="{PlanHeader>/Vkorg}"
+            saId="{PlanHeader>/Sa_Id}"
+            vtweg="{PlanHeader>/Vtweg}"
+            flag="{appView>/Flag}"
+            selectionMode="Single"
+            valueState="{validation>/Customer/state}"
+            valueStateText="{validation>/Customer/text}"
+            value="{PlanHeader>/PlanCustomer}"
+            change="planHeaderDataValidation"
+            serviceUrl="/sap/opu/odata/sap/ZPRTP4_CUST_HIERARCHY_F4_SRV/"
+            valueHelpEnabled="true"
+            valueSelected="onCustomerValueSelected"
+        />
+
+        <m:RadioButtonGroup
+            id="groupB"
+            columns="2"
+            class="sapUiSmallMarginBottom"
+            select="onCustomerFlagChange"
+        >
+            <m:RadioButton
+                text="Sales Team"
+                selected="true"
+            />
+            <m:RadioButton text="Lower Level" />
+            
+
+            <m:layoutData>
+                <l:GridData span="XL2 L2 M2 S2" />
+            </m:layoutData>
+        </m:RadioButtonGroup>
+
+        <m:Label text="{i18n>customerName}" />
+        <m:Text text="{PlanHeader>/CustomerName}" />
+
+        <m:Label text="{i18n>orderDate}" />
+        <m:DateRangeSelection
+            id="idOrderDateRange"
+            change="planHeaderDataValidation"
+            delimiter="–"
+            width="100%"
+            value="{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'dd/MM/yyyy',
+                    'UTC': false     
+				},
+				'parts': [
+					{
+                     'formatOptions': {
+                    'UTC': false    
+                },
+						'type': 'sap.ui.model.type.Date',
+						'path': 'PlanHeader>/OrderDateF'
+					},
+					{
+                     'formatOptions': {
+                    'UTC': false    
+                },
+						'type': 'sap.ui.model.type.Date',
+						'path': 'PlanHeader>/OrderDateT'
+					}
+				]
+			}"
+        />
+
+        <m:Label text="{i18n>buyingDate}" />
+        <m:DateRangeSelection
+            id="idBuyingDateRange"
+            change="planHeaderBuyingDateValidation"
+            delimiter="–"
+            width="100%"
+            valueState="{validation>/BuyingDate/state}"
+            valueStateText="{validation>/BuyingDate/text}"
+            required="true"
+            value="{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'dd/MM/yyyy',
+                    'UTC': false     
+				},
+				'parts': [
+					{
+                     'formatOptions': {
+                    'UTC': false    
+                },
+						'type': 'sap.ui.model.type.Date',
+						'path': 'PlanHeader>/BuyingDateF'
+					},
+					{
+                     'formatOptions': {
+                    'UTC': false    
+                },
+						'type': 'sap.ui.model.type.Date',
+						'path': 'PlanHeader>/BuyingDateT'
+					}
+				]
+			}"
+        />
+        <core:Title text="" />
+
+        <m:Label text="{i18n>instoreDate}" />
+        <m:DateRangeSelection
+            id="idInStoreRange"
+            change="planHeaderDataValidation"
+            delimiter="–"
+            valueState="{validation>/InSoreDate/state}"
+            valueStateText="{validation>/InSoreDate/text}"
+            width="100%"
+            required="true"
+            value="{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'dd/MM/yyyy',
+                     'UTC': false  
+				},
+				'parts': [
+					{
+                     'formatOptions': {
+                    'UTC': false    
+                },
+						'type': 'sap.ui.model.type.Date',
+						'path': 'PlanHeader>/InstoreDateF'
+					},
+					{
+                    
+  
+                'formatOptions': {
+                    'UTC': false    
+                },
+
+						'type': 'sap.ui.model.type.Date',
+						'path': 'PlanHeader>/InstoreDateT'
+					}
+				]
+			}"
+        />
+
+        <m:Label text="{i18n>objective}" />
+
+        <m:MultiInput
+            id="idObjectiveID"
+            liveChange="onMultiOneTokenRestrict"
+            tokenUpdate="planHeaderDataVHValidation"
+            valueHelpRequest="onObectiveVH"
+            suggestionItems="{
+				path: 'PromoPlan>/ObjectiveSet' 
+			}"
+        >
+            <core:Item
+                key="{PromoPlan>PlanType}"
+                text="{PromoPlan>ObjectiveId}"
+            />
+        </m:MultiInput>
+        <m:Label text="{i18n>objectiveDesc}" />
+        <m:Text text="{PlanHeader>/ObjectiveDesc}" />
+        <m:Label text="{i18n>productSelection}" />
+
+        <m:MultiInput
+            id="idProductSelectionID"
+             required="true"
+            liveChange="onMultiOneTokenRestrict"
+            valueState="{validation>/ProductSelection/state}"
+            valueStateText="{validation>/ProductSelection/text}"
+            tokenUpdate="planHeaderDataVHValidation"
+            valueHelpRequest="onProductSelectionVH"
+            suggestionItems="{
+				path: 'appView>/ProductSelection' 
+			}"
+        >
+            <core:Item
+                key="{appView>key}"
+                text="{appView>name}"
+            />
+        </m:MultiInput>
+        <core:Title text="" />
+
+        <m:Label text="{i18n>contractID}" />
+        <m:Input value="{PlanHeader>/ContractId}" liveChange="onContractIDChange" maxLength="50"/>
+    </f:SimpleForm>
+</core:FragmentDefinition>

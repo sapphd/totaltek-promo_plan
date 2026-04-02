@@ -1,0 +1,83 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <f:SimpleForm
+        title="1. General Data"
+        visible="{= !${appView>/isNewMode}&amp;&amp;!${appView>/isEditMode} }"
+        editable="false"
+        layout="ColumnLayout"
+        columnsM="2"
+        columnsL="3"
+        columnsXL="4"
+    >
+        <core:Title text="" />
+
+        <m:Label
+            text="{i18n>eventPlanId}"
+            visible="{= ${PlanHeader>/PlanId} !== '' }"
+        />
+        <m:Text
+            text="{PlanHeader>/PlanId}"
+            visible="{= ${PlanHeader>/PlanId} !== '' }"
+        />
+        <m:Label  text="{i18n>salesOrg}"  />
+        <m:Text text="{PlanHeader>/Vkorg}" />
+
+        <m:Label text="{i18n>salesOrgDesc}" />
+        <m:Text text="{PlanHeader>/VkorgDesc}" />
+
+         <m:Label text="{i18n>distChannel}" />
+        <m:Text text="{PlanHeader>/Vtweg}" />
+
+         <m:Label text="{i18n>distChannelDesc}" />
+        <m:Text text="{PlanHeader>/VtwegDesc}" />
+        <core:Title text="" />
+
+        <m:Label text="{i18n>salesTeam}" />
+        <m:Text text="{PlanHeader>/Sa_Id}" />
+
+       <m:Label text="{i18n>salesAreaName}" />
+        <m:Text text="{PlanHeader>/SaName}" />
+
+        <m:Label text="{i18n>eventType}" />
+        <m:Text text="{PlanHeader>/PlanType}" />
+
+        <m:Label text="{i18n>eventTypeDesc}" />
+        <m:Text text="{PlanHeader>/PlanTypeDesc}" />
+        <core:Title text="" />
+
+        <m:Label text="{i18n>eventDesc}" />
+        <m:Text text="{PlanHeader>/Description}" />
+
+         <m:Label text="{i18n>status}" />
+        <m:Text text="{PlanHeader>/Status}" />
+
+        <m:Label text="{i18n>statusDesc}" />
+        <m:Text text="{PlanHeader>/StatusDesc}" />
+
+        <m:Label text="{i18n>fundPlan}" />
+        <m:Text text="{PlanHeader>/FundPlan}" />
+         <m:Label text="{i18n>fundPlanDesc}" />
+        <m:Text
+            text="{PlanHeader>/FundPlanDesc}"
+        />
+
+         <m:Label text="{i18n>currency}" visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+/>
+        <m:Text visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+
+            text="{PlanHeader>/Currency}"
+            
+        />
+
+         <m:Label text="{i18n>Responsible}" visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+/>
+        <m:Text visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+
+            text="{PlanHeader>/Resp_UserName}"
+            
+        />
+    </f:SimpleForm>
+</core:FragmentDefinition>

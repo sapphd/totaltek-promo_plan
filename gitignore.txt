@@ -1,0 +1,12 @@
+node_modules/
+dist/
+webapp/test/
+webapp/localService/
+.scp/
+.env
+Makefile*.mta
+mta_archives
+mta-*
+resources
+archive.zip
+.*_mta_build_tmp

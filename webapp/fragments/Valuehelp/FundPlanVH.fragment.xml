@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+	contentWidth="30%"
+		noDataText="{i18n>fundPlanNoDataText}"
+		title="{i18n>fundPlanTitle}"
+		multiSelect="false"
+		search="handleVHSearch"
+		rememberSelections="false"
+		searchPlaceholder="{i18n>fundPlanPlaceHolder}"
+		confirm="handleVHConfirm"
+		cancel="handleVHCancel"
+		showClearButton="true"
+		 
+		items="{
+			path : 'PromoPlan>/FundPlanSet',
+			
+			parameters: {select: 'Fundplanid,Description'}
+			 
+		}">
+		<ColumnListItem  >
+			<cells>
+				 
+				<Text text="{PromoPlan>Fundplanid}" />
+				<Text text="{PromoPlan>Description}" />
+				 </cells>
+		</ColumnListItem>
+		<columns>
+			<Column >
+				<header>
+					<Text text="{i18n>fundPlan}" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="{i18n>description}" />
+				</header>
+			</Column>
+			 
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,77 @@
+
+<!-- 
+/************************************************************************ 
+ * Project               : Promo Plan
+ * Process               : TPM
+ * Task Code             : 
+ * Functional Document   : 
+ * Technical Document    :
+ _____________________________________________________________________________
+
+ * File       : controller/BaseController.js
+ * Author     : R73163
+ * Company    : KCC
+ * Created On : 2025-07-27
+ * Description: 
+  _____________________________________________________________________________
+
+ * Moddification no :
+ * Project          :            
+ * Author           :  
+  _____________________________________________________________________________
+
+ * Moddification Date :
+ * Transport Order    :            
+ * Change Request     :  
+ * Description
+ ************************************************************************
+-->
+
+<mvc:View
+    controllerName="com.kcc.promoplan.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+>
+    <f:DynamicPage
+        id="dynamicPageId"
+        
+        
+        toggleHeaderOnTitleClick="false"
+    >
+        <!-- DynamicPage Title -->
+
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>eventPlanning}" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader class="sapUiMediumMargin">
+                <f:content>
+                  
+
+  
+                    <core:Fragment
+                        class="sapUiSmallMarginTop"
+                        fragmentName="com.kcc.promoplan.fragments.Dashboard.PromoPlanFilters"
+                        type="XML"
+                    />
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+       
+           <core:Fragment
+                        class="sapUiSmallMarginTop"
+                        fragmentName="com.kcc.promoplan.fragments.Dashboard.PromoPlan"
+                        type="XML"
+                    />
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

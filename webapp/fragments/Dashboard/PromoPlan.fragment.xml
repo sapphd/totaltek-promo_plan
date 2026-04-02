@@ -1,0 +1,185 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+      xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:f="sap.f"
+     xmlns:sap.ui.fl="sap.ui.fl"
+      xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    core:require="{
+        MyUtils: 'com/kcc/promoplan/utils/ExcelDownload'
+    }"
+>
+    <Button
+        text="click"
+        press="onPress"
+    />
+    <table:Table
+        id="idPromoPlanTable"
+        selectionMode="Multi"
+        sort="onPromoPlanSort"
+        enableColumnFreeze="true"
+        enableColumnReordering="false"
+        selectionBehavior="Row"
+        class="sapUiSizeCompact sapUiResponsiveMargin"
+        alternateRowColors="true"
+        ariaLabelledBy="title"
+        rowMode="Fixed"
+        enableBusyIndicator="true"
+    >   
+        <table:extension>
+            <OverflowToolbar id="otbSubheader">
+                <ToolbarSpacer />
+                <Button
+                    id="idCreaeBtn"
+                    icon="sap-icon://add"
+                    class="sapUiTinyMargin"
+                    text="Create"
+                    type="Emphasized"
+                    press="handlePromoPlanPress"
+                >
+                    <customData>
+                        <core:CustomData
+                            key="action"
+                            value="create"
+                        />
+                    </customData>
+                </Button>
+
+                                <Button text="Copy" press="onCopyConfirmPress"/>
+
+                <Button icon="sap-icon://excel-attachment" press="MyUtils.onExport($controller, $event)"/>
+                 <Button icon="sap-icon://action-settings" press="openPersoDialog"/>
+
+                    <dependents>
+                <columnmenu:Menu id="menu" showTableSettingsButton="true" tableSettingsPressed="openPersoDialog">
+                </columnmenu:Menu>
+            </dependents>
+
+            </OverflowToolbar>
+        </table:extension>
+
+        <table:columns>
+            <table:Column app:p13nKey="PlanId_col" hAlign="Center">
+                <Label text="Plan ID" />
+                <table:template>
+                    <Text text="{PlanId}" />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center" app:p13nKey="eventType_col">
+                <Label text="Type" />
+                <table:template>
+                    <Text text="{PlanType}" />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center" app:p13nKey="customer_col">
+                <Label text="Customer" />
+                <table:template>
+                    <Text text="{PlanCustomer}" />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Order Date From" />
+                <table:template>
+                    <Text
+                        text="{path: 'OrderDateF', formatter: '.formatter.formatDate'}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Order Date To" />
+                <table:template>
+                    <Text
+                        text="{path: 'OrderDateT', formatter: '.formatter.formatDate'}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Buying Date From" />
+                <table:template>
+                    <Text
+                        text="{path: 'BuyingDateF', formatter: '.formatter.formatDate'}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Buying Date To" />
+                <table:template>
+                    <Text
+                        text="{path: 'BuyingDateT', formatter: '.formatter.formatDate'}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Instore Date From" />
+                <table:template>
+                    <Text
+                        text="{path: 'InstoreDateF', formatter: '.formatter.formatDate'}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Instore Date To" />
+                <table:template>
+                    <Text
+                        text="{path: 'InstoreDateT', formatter: '.formatter.formatDate'}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center" app:p13nKey="status_col">
+                <Label text="Status" />
+                <table:template>
+                    <Text text="{Status}" />
+                </table:template>
+            </table:Column>
+            <table:Column>
+                <Label text="Description" />
+                <table:template>
+                    <Text text="{Description}" />
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Edit" />
+                <table:template>
+                    <Button   visible="{
+        path: 'OP_IND',
+        formatter: '.formatter.showEditButton'
+    }"
+                        icon="sap-icon://edit"
+                        text="Edit"
+                        press="handlePromoPlanPress"
+                    >
+                        <customData>
+                            <core:CustomData
+                                key="action"
+                                value="edit"
+                            />
+                        </customData>
+                    </Button>
+                </table:template>
+            </table:Column>
+            <table:Column hAlign="Center">
+                <Label text="Display" />
+                <table:template>
+                    <Button     visible="{
+        path: 'OP_IND',
+        formatter: '.formatter.showDisplayButton'
+    }"
+                        icon="sap-icon://show"
+                        type="Attention"
+                        press="handlePromoPlanPress"
+                    >
+                        <customData>
+                            <core:CustomData
+                                key="action"
+                                value="view"
+                            />
+                        </customData>
+                    </Button>
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

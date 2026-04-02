@@ -1,0 +1,99 @@
+{
+  "PlanId": "",
+  "sPan": "",
+  "Flag": "E",
+  "bSTEButton":false,
+  "ErrorBtnVisible": false,
+  "messages": [],
+  "isEditMode": false,
+  "isNewMode": false,
+  "showFooter": false,
+  "Brand": false,
+  "SubBrand": false,
+  "ErrorCount": 0,
+  "ProductHierarchy": false,
+  "Product": false,
+  "mode": "view",
+  "MaxTactics": 0,
+  "SpendType2": false,
+  "SpendType3": false,
+  "SpendType4": false,
+  "SpendType5": false,
+  "Discount1": false,
+  "DiscountAmt1": false,
+  "Discount2": false,
+  "DiscountAmt2": false,
+  "Discount3": false,
+  "DiscountAmt3": false,
+  "Discount4": false,
+  "DiscountAmt4": false,
+  "Discount5": false,
+  "DiscountAmt5": false,
+  "ProductSelection": [
+    {
+      "key": "PRODH",
+      "name": "Product Hierarchy"
+    },
+    {
+      "key": "MATNR",
+      "name": "Product"
+    },
+    {
+      "key": "BRAND",
+      "name": "Brand"
+    },
+    {
+      "key": "SBRAN",
+      "name": "Sub Brand"
+    }
+  ],
+  "Tactics": [],
+  "CalendarData": [],
+  "PlanItems": [],
+  "PromoPNL": [],
+  "PromoROI": [],
+  "VolumeWeeks": [],
+  "milk": [
+    {
+      "Type": "positive",
+      "CategoryAxis": "Revenue",
+      "Revenue": 340
+    },
+    {
+      "Type": "negative",
+      "CategoryAxis": "Cost",
+      "Revenue": -175
+    },
+    {
+      "Type": "total",
+      "CategoryAxis": "Total",
+      "Revenue": 165
+    }
+  ],
+  "chart": [
+    {
+      "Week": "Week 1",
+      "ROI": 5000,
+      "Uplift": 2000,
+      "Baseline": 1500
+    },
+    {
+      "Week": "Week 2",
+      "ROI": 6000,
+      "Uplift": 2500,
+      "Baseline": 1800
+    },
+    {
+      "Week": "Week 3",
+      "ROI": 6500,
+      "Uplift": 3000,
+      "Baseline": 2200
+    },
+    {
+      "Week": "Week 4",
+      "ROI": 5500,
+      "Uplift": 2300,
+      "Baseline": 1700
+    }
+  ]
+}

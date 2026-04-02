@@ -1,0 +1,946 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:custom="com.kcc.promoplan.controls"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core"
+>
+    <table:Table
+        visible="{= ${appView>/isNewMode} || ${appView>/isEditMode} }"
+        id="idPlanningOITable"
+        rowMode="Fixed"
+        rowsUpdated="onPlanningOITblRowUpdated"
+        rows="{path:'PlanHeader>/To_Item/results',templateShareable: false}"
+        selectionMode="MultiToggle"
+        alternateRowColors="true"
+        enableBusyIndicator="true"
+    >
+        <table:extension>
+            <m:OverflowToolbar>
+                <m:Title text="Planning" />
+                <m:ToolbarSpacer />
+
+                <m:Button
+                    text="Add Spend"
+                    type="Emphasized"
+                    icon="sap-icon://add"
+                    press="onPlanningOIAddColumn"
+                />
+                <m:Button
+                    text="Remove Spend"
+                    type="Negative"
+                    icon="sap-icon://less"
+                    press="onPlanningOIRemoveColumns"
+                />
+
+                <m:Button
+                    text="Add"
+                    type="Emphasized"
+                    icon="sap-icon://add"
+                    press="onPlanningOIAddRow"
+                />
+                <m:Button
+                    text="Delete"
+                    type="Negative"
+                    icon="sap-icon://delete"
+                    press="onPlanningOIDeleteRow"
+                />
+            </m:OverflowToolbar>
+        </table:extension>
+
+        <!-- Columns -->
+        <table:columns>
+            <table:Column
+                width="9rem"
+                visible="{= ${appView>/ProductHierarchy}}"
+            >
+                <m:Label text="Product Hierarchy" />
+                <table:template>
+                    <custom:ProductHierarchy
+                        value="{PlanHeader>Prodh}"
+                        saId="{PlanHeader>/Sa_Id}"
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        valueLiveUpdate="true"
+                        serviceUrl="/sap/opu/odata/sap/ZPRTP4_PROD_HIERARCHY_F4_SRV/"
+                        valueHelpEnabled="true"
+                        valueSelected="onProductValueSelected"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="28rem"
+                visible="{= ${appView>/Product}}"
+            >
+                <m:Label text="Product" />
+
+                <table:template>
+                    <m:MultiInput
+                        showValueHelp="true"
+                        editable="{= !${PlanHeader>IsSummary}}"
+                       
+                        tokenUpdate="onOIVHTokenUpdate"
+                        valueHelpRequest="onOIValueHelp"
+                        suggestionItems="{ 
+				path: 'FilteredSellingSKU>/SellingSKUSet',
+                templateShareable: false
+                 
+
+			}"
+                    >
+                        <core:Item
+                            key="{FilteredSellingSKU>Matnr}"
+                            text="{FilteredSellingSKU>matnr_desc}"
+                        />
+                        <m:customData>
+                            <core:CustomData
+                                key="valuehelp"
+                                value="SellingSKU"
+                            />
+                        </m:customData>
+                    </m:MultiInput>
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="17rem"
+                visible="{= ${appView>/Brand}||${appView>/SubBrand}}"
+            >
+                <m:Label text="Brand" />
+                <table:template>
+                    <m:MultiInput
+                        showValueHelp="true"
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        tokenUpdate="onOIVHTokenUpdate"
+                        valueHelpRequest="onOIValueHelp"
+                        suggestionItems="{
+				path: 'PromoPlan>/BrandSet' 
+			}"
+                        
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>Domvalue}"
+                            text="{PromoPlan>Description}"
+                               additionalText="{PromoPlan>Domvalue}"
+                        />
+                        <m:customData>
+                            <core:CustomData
+                                key="valuehelp"
+                                value="Brand"
+                            />
+                        </m:customData>
+                    </m:MultiInput>
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="17rem"
+                visible="{= ${appView>/SubBrand}}"
+            >
+                <m:Label text="Sub-brand" />
+
+                <table:template>
+                    <m:MultiInput
+                        showValueHelp="true"
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        tokenUpdate="onOIVHTokenUpdate"
+                        valueHelpRequest="onOIValueHelp"
+                        suggestionItems="{
+				path: 'PromoPlan>/SubbrandSet' 
+			}"
+                        
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>Subrand}"
+                            text="{PromoPlan>Subdesc}"
+                             additionalText="{PromoPlan>Subrand}"
+                        />
+
+                        <m:customData>
+                            <core:CustomData
+                                key="valuehelp"
+                                value="SubBrand"
+                            />
+                        </m:customData>
+                    </m:MultiInput>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem" hAlign="End">
+                <m:Label text=" Total Volume" />
+                <table:template>
+                    <m:Text text="{PlanHeader>VolumePlanned}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="6rem">
+                <m:Label text="Baseline" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        type="Number"
+                          textAlign="End"
+                        value="{PlanHeader>Baseline}"
+                        valueLiveUpdate="true"
+                        change="onBaselineChange"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column width="7rem">
+                <m:Label text="Uplift" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>Uplift}"
+                        type="Number"
+                          textAlign="End"
+                        valueLiveUpdate="true"
+                        change="onUpliftChange"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="5rem"
+                hAlign="End"
+            >
+                <m:Label text="List Price" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        textAlign="End"
+                        value="{PlanHeader>ListPrice}"
+                        valueLiveUpdate="true"
+                        liveChange="onListPriceOrVolumeChange"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="7rem"
+                hAlign="End"
+            >
+                <m:Label text="EDLP Discount" />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountEdlp}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="9rem"
+                hAlign="End"
+            >
+                <m:Label text="Edlp" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        textAlign="End"
+                        value="{PlanHeader>NetCost}"
+                        valueLiveUpdate="true"
+                        liveChange="onSalesCostChange"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="9rem"
+                hAlign="End"
+            >
+                <m:Label text="Regular Price" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>RegularPrice}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="9rem">
+                <m:Label text="Shelf Price" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>RetailPrice}"
+                        textAlign="End"
+                        valueLiveUpdate="true"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="10rem">
+                <m:Label text="Spend Type1" />
+                <table:template>
+                    <m:VBox>
+                        <m:MultiInput
+                            showValueHelp="true"
+                            visible="{= ${PlanHeader>IsSummary}}"
+                            valueHelpRequest="onOISpendValueHelp"
+                            suggestionItems="{
+				path: 'PromoPlan>/SpendSet' 
+			}"
+                            width="150px"
+                        >
+                            <core:Item
+                                key="{PromoPlan>SpendType}"
+                                text="{PromoPlan>Description}"
+                            />
+                            <m:customData>
+                                <core:CustomData
+                                    key="valuehelp"
+                                    value="SpendType1"
+                                />
+                            </m:customData>
+                        </m:MultiInput>
+                        <m:Text
+                            visible="{= !${PlanHeader>IsSummary}}"
+                            text="{PlanHeader>SpendType1Desc}"
+                        />
+                    </m:VBox>
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem">
+                <m:Label text="Tactic1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc1}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="8rem">
+                <m:Label text="Spend Method1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod1}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="7rem"
+                visible="{= ${appView>/Discount1}}"
+            >
+                <m:Label text="Discount1" />
+                <table:template>
+                    <m:Input
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>Discount1}"
+                        liveChange="onDiscountChange"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="9rem"
+                visible="{= ${appView>/DiscountAmt1}}"
+            >
+                <m:Label text="Discount Amount1" />
+                <table:template>
+                    <m:Input
+                        editable="{= !(${PlanHeader>IsSummary} &amp;&amp; ${PlanHeader>SpendMethod1} === 'F' &amp;&amp; ${PlanHeader>SpendAlloc1} === '') }"
+                        liveChange="onDiscountAmountChange"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>DiscountAmt1}"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="10rem"
+                visible="{= ${appView>/SpendType2}}"
+            >
+                <m:Label text="Spend Type2" />
+                <table:template>
+                    <m:VBox>
+                        <m:MultiInput
+                            showValueHelp="true"
+
+                            visible="{= ${PlanHeader>IsSummary}}"
+                            valueHelpRequest="onOISpendValueHelp"
+                            suggestionItems="{
+				path: 'PromoPlan>/SpendSet' 
+			}"
+                            width="150px"
+                        >
+                            <core:Item
+                                key="{PromoPlan>SpendType}"
+                                text="{PromoPlan>Description}"
+                            />
+                            <m:customData>
+                                <core:CustomData
+                                    key="valuehelp"
+                                    value="SpendType2"
+                                />
+                            </m:customData>
+                        </m:MultiInput>
+                        <m:Text
+                            visible="{= !${PlanHeader>IsSummary}}"
+                            text="{PlanHeader>SpendType2Desc}"
+                        />
+                    </m:VBox>
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType2}}"
+            >
+                <m:Label text="Tactic2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc2}" />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType2}}"
+            >
+                <m:Label text="Spend Method2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod2}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="7rem"
+                visible="{= ${appView>/Discount2}}"
+            >
+                <m:Label text="Discount2" />
+                <table:template>
+                    <m:Input
+                    textAlign="End"
+                        liveChange="onDiscountChange"
+                        valueLiveUpdate="true"
+                        value="{PlanHeader>Discount2}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="9rem"
+                visible="{= ${appView>/DiscountAmt2}}"
+            >
+                <m:Label text="Discount Amount2" />
+                <table:template>
+                    <m:Input
+                        liveChange="onDiscountAmountChange"
+                        textAlign="End"
+                        editable="{= !(${PlanHeader>IsSummary} &amp;&amp; ${PlanHeader>SpendMethod2} === 'F' &amp;&amp; ${PlanHeader>SpendAlloc2} === '') }"
+                        valueLiveUpdate="true"
+                        value="{PlanHeader>DiscountAmt2}"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="10rem"
+                visible="{= ${appView>/SpendType3}}"
+            >
+                <m:Label text="Spend Type3" />
+                <table:template>
+                    <m:VBox>
+                        <m:MultiInput
+                            visible="{= ${PlanHeader>IsSummary}}"
+                            showValueHelp="true"
+                            valueHelpRequest="onOISpendValueHelp"
+                            suggestionItems="{
+				path: 'PromoPlan>/SpendSet' 
+			}"
+                            width="150px"
+                        >
+                            <core:Item
+                                key="{PromoPlan>SpendType}"
+                                text="{PromoPlan>Description}"
+                            />
+                            <m:customData>
+                                <core:CustomData
+                                    key="valuehelp"
+                                    value="SpendType3"
+                                />
+                            </m:customData>
+                        </m:MultiInput>
+
+                        <m:Text
+                            visible="{= !${PlanHeader>IsSummary}}"
+                            text="{PlanHeader>SpendType3Desc}"
+                        />
+                    </m:VBox>
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType3}}"
+            >
+                <m:Label text="Tactic3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc3}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType3}}"
+            >
+                <m:Label text="Spend Method3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod3}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="7rem"
+                visible="{= ${appView>/Discount3}}"
+            >
+                <m:Label text="Discount3" />
+                <table:template>
+                    <m:Input
+                        liveChange="onDiscountChange"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>Discount3}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="9rem"
+                visible="{= ${appView>/DiscountAmt3}}"
+            >
+                <m:Label text="Discount Amount3" />
+                <table:template>
+                    <m:Input
+                        editable="{= !(${PlanHeader>IsSummary} &amp;&amp; ${PlanHeader>SpendMethod3} === 'F' &amp;&amp; ${PlanHeader>SpendAlloc3} === '') }"
+                        liveChange="onDiscountAmountChange"
+                        textAlign="End"
+                        valueLiveUpdate="true"
+                        value="{PlanHeader>DiscountAmt3}"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="10rem"
+                visible="{= ${appView>/SpendType4}}"
+            >
+                <m:Label text="Spend Type4" />
+                <table:template>
+                    <m:VBox>
+                        <m:MultiInput
+                            visible="{= ${PlanHeader>IsSummary}}"
+                            showValueHelp="true"
+                            valueHelpRequest="onOISpendValueHelp"
+                            suggestionItems="{
+				path: 'PromoPlan>/SpendSet' 
+			}"
+                            width="150px"
+                        >
+                            <core:Item
+                                key="{PromoPlan>SpendType}"
+                                text="{PromoPlan>Description}"
+                            />
+                            <m:customData>
+                                <core:CustomData
+                                    key="valuehelp"
+                                    value="SpendType4"
+                                />
+                            </m:customData>
+                        </m:MultiInput>
+
+                        <m:Text
+                            visible="{= !${PlanHeader>IsSummary}}"
+                            text="{PlanHeader>SpendType4Desc}"
+                        />
+                    </m:VBox>
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType4}}"
+            >
+                <m:Label text="Tactic4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc4}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType4}}"
+            >
+                <m:Label text="Spend Method4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod4}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="7rem"
+                visible="{= ${appView>/Discount4}}"
+            >
+                <m:Label text="Discount4" />
+                <table:template>
+                    <m:Input
+                        liveChange="onDiscountChange"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>Discount4}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="9rem"
+                visible="{= ${appView>/DiscountAmt4}}"
+            >
+                <m:Label text="Discount Amount4" />
+                <table:template>
+                    <m:Input
+                        editable="{= !(${PlanHeader>IsSummary} &amp;&amp; ${PlanHeader>SpendMethod4} === 'F' &amp;&amp; ${PlanHeader>SpendAlloc4} === '') }"
+                        liveChange="onDiscountAmountChange"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>DiscountAmt4}"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="10rem"
+                visible="{= ${appView>/SpendType5}}"
+            >
+                <m:Label text="Spend Type5" />
+                <table:template>
+                    <m:VBox>
+                        <m:MultiInput
+                            visible="{= ${PlanHeader>IsSummary}}"
+                            showValueHelp="true"
+                            valueHelpRequest="onOISpendValueHelp"
+                            suggestionItems="{
+				path: 'PromoPlan>/SpendSet' 
+			}"
+                            width="150px"
+                        >
+                            <core:Item
+                                key="{PromoPlan>SpendType}"
+                                text="{PromoPlan>Description}"
+                            />
+                            <m:customData>
+                                <core:CustomData
+                                    key="valuehelp"
+                                    value="SpendType5"
+                                />
+                            </m:customData>
+                        </m:MultiInput>
+                        <m:Text
+                            visible="{= !${PlanHeader>IsSummary}}"
+                            text="{PlanHeader>SpendType5Desc}"
+                        />
+                    </m:VBox>
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType5}}"
+            >
+                <m:Label text="Tactic5" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc5}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="8rem"
+                visible="{= ${appView>/SpendType5}}"
+            >
+                <m:Label text="Spend Method5" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod5}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column
+                width="7rem"
+                visible="{= ${appView>/Discount5}}"
+            >
+                <m:Label text="Discount5" />
+                <table:template>
+                    <m:Input
+                        liveChange="onDiscountChange"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>Discount5}"
+                    />
+                </table:template>
+            </table:Column>
+            <table:Column
+                width="9rem"
+                visible="{= ${appView>/DiscountAmt5}}"
+            >
+                <m:Label text="Discount Amount5" />
+                <table:template>
+                    <m:Input
+                        editable="{= !(${PlanHeader>IsSummary} &amp;&amp; ${PlanHeader>SpendMethod5} === 'F' &amp;&amp; ${PlanHeader>SpendAlloc5} === '') }"
+                        liveChange="onDiscountAmountChange"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        value="{PlanHeader>DiscountAmt5}"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="10rem" hAlign="End">
+                <m:Label text="Total Sales" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SalesPlanned}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Total OI Cost" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                        value="{PlanHeader>SpendPlannedOi}"
+                        type="Number"
+                        textAlign="End"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="NIV" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                        value="{PlanHeader>Niv}"
+                        type="Number"
+                          textAlign="End"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="LTA Deffered" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                          textAlign="End"
+                        value="{PlanHeader>LtaDef}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Variable Deferred cost" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                        textAlign="End"
+                        value="{PlanHeader>SpendPlannedBb}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Lumpsum Fix Cost" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                        textAlign="End"
+                        value="{PlanHeader>SpendPlannedLs}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="NSV" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                          textAlign="End"
+                        value="{PlanHeader>Nsv}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="5rem" hAlign="End">
+                <m:Label text="Trade %" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Trade}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Gross profit" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                        textAlign="End"
+                        value="{PlanHeader>Sales}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Profit" />
+                <table:template>
+                    <m:Input
+                        editable="false"
+                        textAlign="End"
+                        value="{PlanHeader>Profit}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Cogs" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                          textAlign="End"
+                        value="{PlanHeader>Cogs}"
+                        type="Number"
+                        valueLiveUpdate="true"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="4rem" hAlign="End">
+                <m:Label text="Tax %" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Tax}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem" hAlign="End">
+                <m:Label text="Retail Margin $/CS" />
+                <table:template>
+                    <m:Text text="{PlanHeader>RetailMargin}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem" hAlign="End">
+                <m:Label text="Retail Margin %" />
+                <table:template>
+                    <m:Text text="{PlanHeader>RetailMarginPrc}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Base" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Uom}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="3rem" hAlign="End">
+                <m:Label text="CU" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Ppc}"   textAlign="End"/>
+                </table:template>
+            </table:Column>
+
+            <table:Column width="8rem">
+                <m:Label text="Logistic OI Cost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>LogisticOiCost}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="8rem">
+                <m:Label text="Financial OI Cost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>FinancialOiCost}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Other OI Cost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>OtherOiCost}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="8rem">
+                <m:Label text="Logistic Def Cost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>LogisticDefCost}"
+                        textAlign="End"
+                        valueLiveUpdate="true"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="9rem">
+                <m:Label text="Financial Def Cost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>FinancialDefCost}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Other Def Cost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>OtherDefCost}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem">
+                <m:Label text="Dcost" />
+                <table:template>
+                    <m:Input
+                        editable="{= !${PlanHeader>IsSummary}}"
+                        value="{PlanHeader>Dcost}"
+                        valueLiveUpdate="true"
+                        textAlign="End"
+                        liveChange="updateSummaryRow"
+                    />
+                </table:template>
+            </table:Column>
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

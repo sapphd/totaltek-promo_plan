@@ -1,0 +1,487 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:custom="com.kcc.promoplan.controls"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core"
+>
+    <table:Table
+     visible="{= !${appView>/isNewMode}&amp;&amp;!${appView>/isEditMode} }"
+         
+        id="idPlanningOIDisplayTable"
+                rowsUpdated="onPlanningOITblDspRowUpdated"
+        rows="{path:'PlanHeader>/To_Item/results',templateShareable: false}"
+  rowMode="Auto"
+        selectionMode="None"
+        alternateRowColors="true"
+        enableBusyIndicator="true"
+        
+    >
+        <table:extension>
+            <m:OverflowToolbar>
+                <m:Title text="Planning" />
+            </m:OverflowToolbar>
+        </table:extension>
+
+        <!-- Columns -->
+        <table:columns>
+            
+            <table:Column width="9rem" visible="{= ${appView>/ProductHierarchy}}">
+                <m:Label text="Product Hierarchy" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Prodh}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="6rem"  visible="{= ${appView>/Product}}">
+                <m:Label text="Product" />
+
+                <table:template>
+                    <m:Text text="{PlanHeader>Matnr}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem" visible="{= ${appView>/Brand}||${appView>/SubBrand}}">
+                <m:Label text="Brand" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Brand}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem" visible="{= ${appView>/SubBrand}}">
+                <m:Label text="Sub-brand" />
+
+                <table:template>
+                    <m:Text text="{PlanHeader>Subbrand}" />
+                </table:template>
+            </table:Column>
+           <table:Column width="7rem" hAlign="End">
+                <m:Label text="Total Volume" />
+                <table:template>
+                    <m:Text text="{PlanHeader>VolumePlanned}" />
+                </table:template>
+            </table:Column>
+  <table:Column width="6rem" hAlign="End">
+                <m:Label text="Baseline" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Baseline}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="7rem" hAlign="End">
+                <m:Label text="Uplift" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Uplift}" />
+                </table:template>
+            </table:Column>
+             
+
+
+            <table:Column width="5rem" hAlign="End">
+                <m:Label text="List Price" />
+                <table:template>
+                    <m:Text text="{PlanHeader>ListPrice}" />
+                </table:template>
+            </table:Column>
+              <table:Column width="7rem" hAlign="End">
+                <m:Label text="EDLP Discount" />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountEdlp}" />
+                </table:template>
+            </table:Column>
+
+              <table:Column width="7rem" hAlign="End">
+                <m:Label text="Edlp" />
+                <table:template>
+                    <m:Text text="{PlanHeader>NetCost}" />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="9rem" hAlign="End">
+                <m:Label text="Regular Price" />
+                <table:template>
+                    <m:Text text="{PlanHeader>RegularPrice}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="9rem" hAlign="End">
+                <m:Label text="Shelf Price" />
+                <table:template>
+                    <m:Text text="{PlanHeader>RetailPrice}" />
+                </table:template>
+            </table:Column>
+          
+
+  <table:Column width="7rem" visible="{= ${appView>/SpendType1}}">
+                <m:Label text="Spend Type1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendType1Desc}" />
+                </table:template>
+            </table:Column>
+               <table:Column width="8rem" visible="{= ${appView>/SpendType1}}">
+                <m:Label text="Tactic1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc1}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem" visible="{= ${appView>/SpendType1}}">
+                <m:Label text="Spend Method1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod1}" />
+                </table:template>
+            </table:Column>
+              
+            <table:Column width="7rem" visible="{= ${appView>/Discount1}}" hAlign="End">
+                <m:Label text="Discount1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Discount1}" />
+                </table:template>
+            </table:Column>
+             <table:Column width="10rem" visible="{= ${appView>/DiscountAmt1}}" hAlign="End">
+                <m:Label text="Discount Amount1" />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountAmt1}" />
+                </table:template>
+            </table:Column>
+
+
+              <table:Column width="7rem" visible="{= ${appView>/SpendType2}}">
+                <m:Label text="Spend Type2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendType2Desc}" />
+                </table:template>
+            </table:Column>
+               <table:Column width="8rem" visible="{= ${appView>/SpendType2}}">
+                <m:Label text="Tactic2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc2}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem" visible="{= ${appView>/SpendType2}}">
+                <m:Label text="Spend Method2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod2}" />
+                </table:template>
+            </table:Column>
+
+           
+            <table:Column width="7rem" visible="{= ${appView>/Discount2}}" hAlign="End">
+                <m:Label text="Discount2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Discount2}" />
+                </table:template>
+            </table:Column>
+             <table:Column width="10rem" visible="{= ${appView>/DiscountAmt2}}" hAlign="End">
+                <m:Label text="Discount Amount2" />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountAmt2}" />
+                </table:template>
+            </table:Column>
+
+
+              <table:Column width="7rem" visible="{= ${appView>/SpendType3}}">
+                <m:Label text="Spend Type3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendType3Desc}" />
+                </table:template>
+            </table:Column>
+
+               <table:Column width="8rem" visible="{= ${appView>/SpendType3}}">
+                <m:Label text="Tactic3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc3}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="8rem" visible="{= ${appView>/SpendType3}}">
+                <m:Label text="Spend Method3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod3}" />
+                </table:template>
+            </table:Column>
+
+              
+            <table:Column width="7rem" visible="{= ${appView>/Discount3}}" hAlign="End">
+                <m:Label text="Discount3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Discount3}" />
+                </table:template>
+            </table:Column>
+             <table:Column width="10rem" visible="{= ${appView>/DiscountAmt3}}" hAlign="End">
+                <m:Label text="Discount Amount3" />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountAmt3}" />
+                </table:template>
+            </table:Column>
+
+
+
+              <table:Column width="7rem" visible="{= ${appView>/SpendType4}}">
+                <m:Label text="Spend Type4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendType4Desc}" />
+                </table:template>
+            </table:Column>
+
+               <table:Column width="8rem" visible="{= ${appView>/SpendType4}}">
+                <m:Label text="Tactic4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc4}" />
+                </table:template>
+            </table:Column>
+
+
+            <table:Column width="8rem" visible="{= ${appView>/SpendType4}}">
+                <m:Label text="Spend Method4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod4}" />
+                </table:template>
+            </table:Column>
+
+              
+            <table:Column width="7rem" visible="{= ${appView>/Discount4}}" hAlign="End">
+                <m:Label text="Discount4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Discount4}" />
+                </table:template>
+            </table:Column>
+             <table:Column width="10rem" visible="{= ${appView>/DiscountAmt4}}" hAlign="End">
+                <m:Label text="Discount Amount4" />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountAmt4}" />
+                </table:template>
+            </table:Column>
+
+
+              <table:Column width="7rem" visible="{= ${appView>/SpendType5}}">
+                <m:Label text="Spend Type5" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendType5Desc}" />
+                </table:template>
+            </table:Column>
+
+               <table:Column width="8rem" visible="{= ${appView>/SpendType5}}">
+                <m:Label text="Tactic5" />
+                <table:template>
+                    <m:Text text="{PlanHeader>TacticDesc5}" />
+                </table:template>
+            </table:Column>
+
+
+            <table:Column width="8rem" visible="{= ${appView>/SpendType5}}">
+                <m:Label text="Spend Method5" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendMethod5}" />
+                </table:template>
+            </table:Column>
+
+              
+            <table:Column width="7rem" visible="{= ${appView>/Discount5}}" hAlign="End">
+                <m:Label text="Discount5" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Discount5}" />
+                </table:template>
+            </table:Column>
+             <table:Column width="10rem" visible="{= ${appView>/DiscountAmt5}}" hAlign="End">
+                <m:Label text="Discount Amount5"  />
+                <table:template>
+                    <m:Text text="{PlanHeader>DiscountAmt5}" />
+                </table:template>
+            </table:Column>
+
+
+  <table:Column width="10rem" hAlign="End">
+                <m:Label text="Total Sales" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SalesPlanned}" />
+                </table:template>
+            </table:Column>
+
+              <table:Column width="10rem" hAlign="End">
+                <m:Label text="Total OI Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>SpendPlannedOi}" />
+                </table:template>
+            </table:Column>
+  <table:Column width="7rem" hAlign="End">
+                <m:Label text="NIV" />
+                <table:template>
+                    <m:Text
+                         text="{PlanHeader>Niv}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="7rem" hAlign="End">
+                <m:Label text="LTA Deffered" />
+                <table:template>
+                    <m:Text
+                       
+                        text="{PlanHeader>LtaDef}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="7rem" hAlign="End">
+                <m:Label text="Variable Deferred cost" />
+                <table:template>
+                    <m:Text
+                        
+                        text="{PlanHeader>SpendPlannedBb}"
+                       
+                    />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="7rem" hAlign="End">
+                <m:Label text="Lumpsum Fix Cost" />
+                <table:template>
+                    <m:Text
+                         
+                        text="{PlanHeader>SpendPlannedLs}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+  <table:Column width="7rem" hAlign="End">
+                <m:Label text="NSV" />
+                <table:template>
+                    <m:Text
+                       
+                        text="{PlanHeader>Nsv}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+  <table:Column width="5rem" hAlign="End">
+                <m:Label text="Trade %" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Trade}" />
+                </table:template>
+            </table:Column>
+
+
+
+              <table:Column width="7rem" hAlign="End">
+                <m:Label text="Gross profit" />
+                <table:template>
+                    <m:Text
+                        
+                        text="{PlanHeader>Sales}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="7rem" hAlign="End">
+                <m:Label text="Profit" />
+                <table:template>
+                    <m:Text
+                        
+                        text="{PlanHeader>Profit}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+          
+
+               <table:Column width="7rem" hAlign="End">
+                <m:Label text="Cogs" />
+                <table:template>
+                    <m:Text
+                         text="{PlanHeader>Cogs}"
+                        
+                    />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="4rem" hAlign="End">
+                <m:Label text="Tax %" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Tax}" />
+                </table:template>
+            </table:Column>
+ <table:Column width="7rem" hAlign="End">
+                <m:Label text="Retail Margin" />
+                <table:template>
+                    <m:Text text="{PlanHeader>RetailMargin}" />
+                </table:template>
+            </table:Column>
+            <table:Column width="8rem" hAlign="End">
+                <m:Label text="Retail Margin %" />
+                <table:template>
+                    <m:Text text="{PlanHeader>RetailMarginPrc}" />
+                </table:template>
+            </table:Column>
+      
+
+         <table:Column width="7rem">
+                <m:Label text="Base" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Uom}" />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="3rem" hAlign="End">
+                <m:Label text="CU" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Ppc}" />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="8rem" hAlign="End">
+                <m:Label text="Logistic OI Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>LogisticOiCost}" />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="8rem" hAlign="End">
+                <m:Label text="Financial OI Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>FinancialOiCost}" />
+                </table:template>
+            </table:Column>
+
+             <table:Column width="7rem" hAlign="End" >
+                <m:Label text="Other OI Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>OtherOiCost}" />
+                </table:template>
+            </table:Column>
+
+            
+             <table:Column width="8rem" hAlign="End">
+                <m:Label text="Logistic Def Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>LogisticDefCost}" />
+                </table:template>
+            </table:Column>
+
+            
+             <table:Column width="9rem" hAlign="End">
+                <m:Label text="Financial Def Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>FinancialDefCost}" />
+                </table:template>
+            </table:Column>
+
+            
+             <table:Column width="7rem" hAlign="End">
+                <m:Label text="Other Def Cost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>OtherDefCost}" />
+                </table:template>
+            </table:Column>
+
+            <table:Column width="7rem" hAlign="End">
+                <m:Label text="Dcost" />
+                <table:template>
+                    <m:Text text="{PlanHeader>Dcost}" />
+                </table:template>
+            </table:Column>
+           
+        </table:columns>
+    </table:Table>
+</core:FragmentDefinition>

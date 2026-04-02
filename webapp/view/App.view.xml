@@ -1,0 +1,35 @@
+
+<!-- 
+/************************************************************************ 
+ * Project               : Promo Plan
+ * Process               : TPM
+ * Task Code             : 
+ * Functional Document   : 
+ * Technical Document    :
+ _____________________________________________________________________________
+
+ * File       : controller/BaseController.js
+ * Author     : R73163
+ * Company    : KCC
+ * Created On : 2025-07-27
+ * Description: 
+  _____________________________________________________________________________
+
+ * Moddification no :
+ * Project          :            
+ * Author           :  
+  _____________________________________________________________________________
+
+ * Moddification Date :
+ * Transport Order    :            
+ * Change Request     :  
+ * Description
+ ************************************************************************
+-->
+<mvc:View controllerName="com.kcc.promoplan.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    
+    xmlns="sap.m">
+    <App id="app"/>
+    
+</mvc:View>

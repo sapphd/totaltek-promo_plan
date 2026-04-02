@@ -1,0 +1,61 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <f:SimpleForm
+     visible="{= !${appView>/isNewMode}&amp;&amp;!${appView>/isEditMode} }"
+        editable="false"
+        title="2. Plan Header"
+       layout="ColumnLayout"
+       	columnsM="2"
+			columnsL="3"
+			columnsXL="3"
+    >
+        	<core:Title text="" />
+
+        <m:Label text="{i18n>planCustomer}" />
+        <m:Text text="{PlanHeader>/PlanCustomer}" />
+
+         <m:Label text="{i18n>customerName}" />
+          <m:Text text="{PlanHeader>/CustomerName}" />
+
+      <m:Label text="{i18n>orderDate}" />
+<m:Text text="{parts: [{path: 'PlanHeader>/OrderDateF'}, {path: 'PlanHeader>/OrderDateT'}], formatter: '.formatter.formatDateRange'}" />
+
+ <m:Label text="{i18n>buyingDate}" />
+<m:Text text="{parts: [{path: 'PlanHeader>/BuyingDateF'}, {path: 'PlanHeader>/BuyingDateT'}], formatter: '.formatter.formatDateRange'}" />
+    	<core:Title text="" />
+
+ <m:Label text="{i18n>instoreDate}" />
+<m:Text text="{parts: [{path: 'PlanHeader>/InstoreDateF'}, {path: 'PlanHeader>/InstoreDateT'}], formatter: '.formatter.formatDateRange'}" />
+
+
+         <m:Label text="{i18n>objective}" />
+        <m:Text text="{PlanHeader>/ObjectiveId}" />
+
+         <m:Label text="{i18n>objectiveDesc}" />
+        <m:Text
+            text="{PlanHeader>/ObjectiveDesc}"
+        />
+
+        <m:Label text="{i18n>productSelection}" />
+        
+<m:Text
+    text="{
+        path:'PlanHeader>/ProductSelection',
+        formatter: '.formatter.productSelectionText'
+    }"
+/>
+
+        
+
+      
+    	<core:Title text="" />
+
+        <m:Label text="{i18n>contractID}" />
+        <m:Text text="{PlanHeader>/ContractId}"/>
+
+         
+    </f:SimpleForm>
+</core:FragmentDefinition>

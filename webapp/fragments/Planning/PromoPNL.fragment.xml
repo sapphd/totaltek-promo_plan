@@ -1,0 +1,166 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:custom="com.kcc.promoplan.controls"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:vizData="sap.viz.ui5.data"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core"
+>
+    <VBox
+        alignItems="Center"
+        justifyContent="Center"
+    >
+        <HBox>
+            <Label
+                text="Category: "
+                class="sapUiSmallMarginBegin sapUiTinyMarginTop"
+            />
+            <MultiComboBox
+                id="planItemCombo"
+                selectionChange="onSelectionChange"
+                selectedKeys="All"
+                width="15rem"
+                class="sapUiSmallMarginBegin"
+                items="{
+        path: 'appView>/PlanItems'
+    }"
+            >
+                <core:Item
+                    key="{appView>ItemNo}"
+                    text="{appView>PlanItemDesc}"
+                />
+            </MultiComboBox>
+            <Label
+                text="Weeks: "
+                class="sapUiSmallMarginBegin sapUiTinyMarginTop"
+            />
+            <MultiComboBox
+                id="weekCombo"
+                 width="15rem"
+                selectionChange="onSelectionChange"
+                selectedKeys="All"
+                class="sapUiSmallMarginBegin"
+                items="{
+        path: 'appView>/VolumeWeeks',
+        templateShareable: false
+    }"
+            >
+                <core:Item
+                    key="{appView>Yearweek}"
+                    text="{appView>week}"
+                />
+            </MultiComboBox>
+        </HBox>
+<VBox height="400px" width="800px">
+        <viz:VizFrame id="idVizFrame"
+    uiConfig="{applicationSet:'fiori'}"
+    height="400px"
+    width="100%"
+    vizType="stacked_combination">
+
+    <viz:dataset>
+        <viz.data:FlattenedDataset data="{appView>/PromoROI}">
+            <viz.data:dimensions>
+                <viz.data:DimensionDefinition
+                    name="Week"
+                    value="{Week}" />
+            </viz.data:dimensions>
+
+            <viz.data:measures>    
+                <viz.data:MeasureDefinition name="ROI" value="{ROI}" />
+                <viz.data:MeasureDefinition name="Uplift" value="{Uplift}" />
+                <viz.data:MeasureDefinition name="Baseline" value="{Baseline}" />
+            </viz.data:measures>
+        </viz.data:FlattenedDataset>
+    </viz:dataset>
+
+    <viz:feeds>
+        <!-- Stacked Columns -->
+        <viz.feeds:FeedItem
+            uid="valueAxis"
+            type="Measure"
+            values="ROI,Uplift,Baseline" />
+
+     
+
+        <!-- Dimension -->
+        <viz.feeds:FeedItem
+            uid="categoryAxis"
+            type="Dimension"
+            values="Week" />
+    </viz:feeds>
+
+    <viz:dependents>
+        <viz:Popover id="idPopOver"/>
+    </viz:dependents>
+
+</viz:VizFrame>
+
+</VBox>
+       
+
+        <Title
+            text="Promotion Metrics Summary"
+            level="H2"
+        />
+
+        <table:Table
+    id="idPNLMetric"
+    rows="{appView>/PromoPNL}"
+    selectionMode="None"
+    width="100%"
+    rowsUpdated="onPNLTblRowUpdated"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+>
+    <table:columns>
+        <!-- Metric Name Column -->
+        <table:Column>
+            <table:label>
+                <m:Label text="Metric"/>
+            </table:label>
+            <table:template>
+                <m:Label text="{appView>name}" />
+            </table:template>
+        </table:Column>
+
+        <!-- Non-Promoted Column (N) -->
+        <table:Column hAlign="End">
+            <table:label>
+                <m:Label text="Non-Promoted"/>
+            </table:label>
+            <table:template>
+                <m:Label text="{appView>N}" />
+            </table:template>
+        </table:Column>
+
+        <!-- Promoted Column (Y) -->
+        <table:Column hAlign="End">
+            <table:label>
+                <m:Label text="Promoted"/>
+            </table:label>
+            <table:template>
+                <m:Label text="{appView>Y}" />
+            </table:template>
+        </table:Column>
+
+         <table:Column hAlign="End">
+            <table:label>
+                <m:Label text="Delta"/>
+            </table:label>
+            <table:template>
+                 <m:Label text="{appView>D}" />
+            </table:template>
+        </table:Column>
+    </table:columns>
+</table:Table>
+      
+    </VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,241 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <f:SimpleForm
+        editable="true"
+        visible="{= ${appView>/isNewMode} || ${appView>/isEditMode} }"
+        layout="ColumnLayout"
+       		columnsM="2"
+			columnsL="3"
+			columnsXL="4"
+ 
+
+    >
+    	<core:Title text="" />
+        <m:Label
+            text="{i18n>eventPlanId}"
+            visible="{= ${PlanHeader>/PlanId} !== '' }"
+        />
+        <m:Text
+            text="{PlanHeader>/PlanId}"
+            visible="{= ${PlanHeader>/PlanId} !== '' }"
+        />
+        <m:Label text="{i18n>salesOrg}" />
+
+        <m:MultiInput
+            required="true"
+            width="16rem"
+            tokenUpdate="generalDataVHValidation"
+           
+            liveChange="onMultiOneTokenRestrict"
+            maxTokens="1"
+            id="idSalesOrgGDVHID"
+            valueState="{validation>/SalesOrg/state}"
+            valueStateText="{validation>/SalesOrg/text}"
+            valueHelpRequest="onSalesOrgGDVH"
+            suggestionItems="{
+				path: 'PromoPlan>/SalesOrgSet' 
+			}"
+        >
+            <core:ListItem
+                key="{PromoPlan>SalesOrg}"
+                text="{PromoPlan>SalesOrg}"
+
+                additionalText="{PromoPlan>Description}">
+                
+      
+ 
+               
+            </core:ListItem>
+        </m:MultiInput>
+
+        <m:Label text="{i18n>salesOrgDesc}" />
+
+        <m:Text
+            text="{PlanHeader>/VkorgDesc}"
+            id="idSalesOrdDesc"
+        />
+
+        <m:Label text="{i18n>distChannel}" />
+        <m:MultiInput
+            required="true"
+            width="16rem"
+            liveChange="onMultiOneTokenRestrict"
+            maxTokens="1"
+            tokenUpdate="generalDataVHValidation"
+            valueState="{validation>/DistChan/state}"
+            valueStateText="{validation>/DistChan/text}"
+            id="idDistChanGDVHID"
+            valueHelpRequest="onDistChanGDVH"
+            suggestionItems="{
+				path: 'DistChan>/DistChSet' 
+			}"
+        >
+
+          <core:ListItem
+                key="{DistChan>DistCh}"
+                text="{DistChan>DistCh}"
+
+                additionalText="{DistChan>Description}">
+   
+            </core:ListItem>
+            
+        </m:MultiInput>
+
+        <m:Label text="{i18n>distChannelDesc}" />
+        <m:Text
+            text="{PlanHeader>/VtwegDesc}"
+            id="idDistChanGDVHDesc"
+        />
+	<core:Title text="" />
+        <m:Label text="{i18n>salesTeam}" />
+        <m:MultiInput
+            required="true"
+            width="16rem"
+            liveChange="onMultiOneTokenRestrict"
+            maxTokens="1"
+            tokenUpdate="generalDataVHValidation"
+            valueState="{validation>/SalesArea/state}"
+            valueStateText="{validation>/SalesArea/text}"
+            id="idSalesAreaGDVHID"
+            valueHelpRequest="onSalesAreaGDVH"
+            suggestionItems="{
+				path: 'PromoPlan>/SalesAreaSet' 
+			}"
+        >
+          <core:ListItem
+                key="{PromoPlan>SaId}"
+                text="{PromoPlan>SaId}"
+
+                additionalText="{PromoPlan>SaName}">
+   
+            </core:ListItem>
+            
+        </m:MultiInput>
+
+        <m:Label text="{i18n>salesAreaName}" />
+        <m:Text text="{PlanHeader>/SaName}" />
+
+        <m:Label text="{i18n>eventType}" />
+        <m:MultiInput
+            required="true"
+            width="16rem"
+            tokenUpdate="generalDataVHValidation"
+            liveChange="onMultiOneTokenRestrictPlanType"
+            maxTokens="1"
+            valueState="{validation>/PromoPlanType/state}"
+            valueStateText="{validation>/PromoPlanType/text}"
+            id="idPromoPlanTypeID"
+            valueHelpRequest="onPromoPlanTypeVH"
+            suggestionItems="{
+				path: 'PromoPlan>/PromoPlanSet' 
+			}"
+        >
+          <core:ListItem
+                key="{PromoPlan>PlanType}"
+                text="{PromoPlan>PlanType}"
+
+                additionalText="{PromoPlan>Description}">
+   
+            </core:ListItem>
+            
+        </m:MultiInput>
+
+        <m:Label text="{i18n>eventTypeDesc}" />
+        <m:Text
+            text="{PlanHeader>/PlanTypeDesc}"
+            id="idPlanTypeDesc"
+        />
+<core:Title text="" />
+        <m:Label text="{i18n>eventDesc}" />
+        <m:Input
+            valueLiveUpdate="true"
+             width="16rem"
+            value="{PlanHeader>/Description}"
+            required="true"
+            id="idPromoDesc"
+            maxLength="60"
+            liveChange="generalDataInputValidation"
+            valueState="{validation>/PromoDesc/state}"
+            valueStateText="{validation>/PromoDesc/text}"
+        />
+	
+        <m:Label text="{i18n>status}" />
+        <m:MultiInput
+            required="true"
+            width="16rem"
+            tokenUpdate="generalDataVHValidation"
+            liveChange="onMultiOneTokenRestrict"
+            valueState="{validation>/Status/state}"
+            valueStateText="{validation>/Status/text}"
+            id="idStatusVHCreateID"
+            valueHelpRequest="onStatusGDVH"
+            suggestionItems="{
+				path: 'PromoPlan>/StatusSet' 
+			}"
+        >
+
+          <core:ListItem
+                key="{PromoPlan>Status}"
+                text="{PromoPlan>Status}"
+
+                additionalText="{PromoPlan>Statusgroup}">
+   
+            </core:ListItem>
+           
+        </m:MultiInput>
+
+           <m:Label text="{i18n>statusDesc}" />
+        <m:Text
+            text="{PlanHeader>/StatusDesc}"
+             
+        />
+
+        <m:Label text="{i18n>fundPlan}" />
+        <m:MultiInput
+            required="true"
+            width="16rem"
+            liveChange="onMultiOneTokenRestrict"
+            tokenUpdate="generalDataVHValidation"
+            valueState="{validation>/FundPlan/state}"
+            valueStateText="{validation>/FundPlan/text}"
+            id="idFundPlanVHID"
+            valueHelpRequest="onFundPlanVH"
+            suggestionItems="{
+				path: 'PromoPlan>/FundPlanSet' 
+			}"
+        >
+          <core:ListItem
+                key="{PromoPlan>Fundplanid}"
+                text="{PromoPlan>Fundplanid}"
+
+                additionalText="{PromoPlan>Description}">
+   
+            </core:ListItem>   
+        </m:MultiInput>
+
+        <m:Label text="{i18n>fundPlanDesc}" />
+        <m:Text
+            text="{PlanHeader>/FundPlanDesc}"
+        />
+         <m:Label text="{i18n>currency}" visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+/>
+        <m:Text visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+
+            text="{PlanHeader>/Currency}"
+            
+        />
+
+        <m:Label text="{i18n>Responsible}" visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+/>
+        <m:Text visible="{= ${appView>/isEditMode} || (!${appView>/isEditMode} &amp;&amp; !${appView>/isNewMode}) }"
+
+            text="{PlanHeader>/Resp_UserName}"
+            
+        />
+
+        
+    </f:SimpleForm>
+</core:FragmentDefinition>

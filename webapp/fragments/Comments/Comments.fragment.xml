@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    >
+    <layout:VerticalLayout width="100%">
+        <FeedInput post="onPostComments"  />
+        <List id="idCommentsList" showSeparators="Inner" items="{ path: 'Comments>/Comments'}">
+            <FeedListItem sender="{Comments>CreatedBy}" 
+                info="{Type}" 
+                timestamp="{Comments>CreatedAt}" 
+                text="{Comments>CommentText}"
+                convertLinksToAnchorTags="All" />
+        </List>
+    </layout:VerticalLayout>
+</core:FragmentDefinition>

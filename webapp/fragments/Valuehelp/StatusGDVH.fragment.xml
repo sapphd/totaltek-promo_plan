@@ -1,0 +1,44 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <TableSelectDialog
+        noDataText="{i18n>statusNoDataText}"
+        contentWidth="30%"
+        title="{i18n>statusTitle}"
+        multiSelect="false"
+        search="handleVHSearch"
+        rememberSelections="false"
+        searchPlaceholder="{i18n>statusSrchPlaceHolder}"
+        confirm="handleVHConfirm"
+        cancel="handleVHCancel"
+        showClearButton="true"
+        items="{
+			path : 'PromoPlan>/StatusSet',
+			parameters: {select: 'Statusgroup,Status,Description'}
+			 
+		}"
+    >
+        <ColumnListItem>
+            <cells>
+                <Text text="{PromoPlan>Status}" />
+                <Text text="{PromoPlan>Description}" />
+            </cells>
+        </ColumnListItem>
+        <columns>
+            <Column>
+                <header>
+                    <Text text="{i18n>status}" />
+                </header>
+            </Column>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true"
+            >
+                <header>
+                    <Text text="{i18n>description}" />
+                </header>
+            </Column>
+        </columns>
+    </TableSelectDialog>
+</core:FragmentDefinition>

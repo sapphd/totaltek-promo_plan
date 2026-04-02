@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:core="sap.ui.core">
+  <Dialog id="spendSetDialog" title="Spend Set Details" contentWidth="60%" contentHeight="400px">
+    <t:TreeTable
+       rows="{path: 'appView>/Tactics', parameters: {arrayNames: ['children']}}"
+      selectionMode="Single"
+       rowSelectionChange="onRowSpendSelectionChange"
+      enableColumnReordering="true">
+      
+      <t:columns>
+        <t:Column>
+          <t:label>
+            <Label text="Tactic ID" />
+          </t:label>
+          <t:template>
+            <Text text="{appView>TacticDesc}" />
+          </t:template>
+        </t:Column>
+
+       
+
+        <t:Column>
+          <t:label>
+            <Label text="Spend Type" />
+          </t:label>
+          <t:template>
+            <Text text="{appView>SpendType}" />
+          </t:template>
+        </t:Column>
+
+        <t:Column>
+          <t:label>
+            <Label text="Description" />
+          </t:label>
+          <t:template>
+            <Text text="{appView>Description}" />
+          </t:template>
+        </t:Column>
+
+         <t:Column>
+          <t:label>
+            <Label text="Spend Allocation" />
+          </t:label>
+          <t:template>
+            <Text text="{appView>SpendAlloc}" />
+          </t:template>
+        </t:Column>
+      
+      </t:columns>
+
+    </t:TreeTable>
+<beginButton>
+ <Button text="OK" press="onOKSpendSetDialog" />
+
+</beginButton>
+    <endButton>
+         
+      <Button text="Cancel" press="onCloseSpendSetDialog" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

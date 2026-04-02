@@ -1,0 +1,48 @@
+  [
+    { "name": "Volume (CU)", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Volume (CS)", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    
+ 
+    { "name": "Uom (EA/CS)", "Baseline": "", "Promoted": "", "Delta": "" ,"bold":"Standard"},
+    { "name": "CU", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+
+    { "name": "List Price", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+
+    { "name": "Basic Gross Sales", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+
+    { "name": "EDLP", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "TP OI Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "CP OI Discount", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+    { "name": "Logistic OI Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Financial OI Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Other OI Discount", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+
+    { "name": "NIV", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+
+    { "name": "LTA Deferred Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "TP Deferred Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "CP Deferred Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Logistic Deferred Discount", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Financial Deferred Discount", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+    { "name": "Other Deferred", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+
+    { "name": "Net Sales", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Bold" },
+    { "name": "COGS", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "DISTRIBUTION", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+    { "name": "Gross Profit", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Bold" },
+    { "name": "Profit", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+    { "name": "Trade Spend", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Bold" },
+    { "name": "ROI", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Bold" },
+
+    
+
+    { "name": "Price", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Retailer Sales", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Standard"},
+
+    { "name": "Retail Investment", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+
+    { "name": "Retail Margin $", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+    { "name": "Retail Margin %", "Baseline": 0, "Promoted": 0, "Delta": 0,"bold":"Standard" },
+
+    { "name": "Retailer ROI", "Baseline": 0, "Promoted": 0, "Delta": 0 ,"bold":"Bold"}
+  ]

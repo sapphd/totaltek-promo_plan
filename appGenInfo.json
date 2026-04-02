@@ -1,0 +1,24 @@
+{
+  "generationParameters": {
+    "generationDate": "Wed Jul 23 2025 10:22:54 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "SAP System (ABAP On-Premise)",
+    "metadataFilename": "",
+    "serviceUrl": "http://sapdd4-virtual.kcc.com:60010/sap/opu/odata/sap/ZSRV_TP4_PLAN_HDR",
+    "appName": "promoplan",
+    "appTitle": "Promo Plan",
+    "appDescription": "Promo Plan",
+    "appNamespace": "com.kcc",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.138.0",
+    "enableCodeAssist": false,
+    "enableEslint": false,
+    "enableTypeScript": false,
+    "showMockDataInfo": false,
+    "generatorVersion": "1.18.3",
+    "template": "Basic",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
+  }
+}

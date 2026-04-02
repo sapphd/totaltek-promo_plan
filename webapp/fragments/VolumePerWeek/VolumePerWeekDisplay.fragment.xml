@@ -1,0 +1,18 @@
+
+
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:table="sap.ui.table"
+    xmlns:core="sap.ui.core"
+>
+
+ 
+    <table:Table rows="{VolumeModel>/}" alternateRowColors="true" id="idVolumePerWeekDisplay"   selectionMode="None"   visible="{= !${appView>/isNewMode}&amp;&amp;!${appView>/isEditMode} }"
+        enableBusyIndicator="true"
+        firstVisibleRow="5">
+    
+ 
+    </table:Table>
+
+ </core:FragmentDefinition>

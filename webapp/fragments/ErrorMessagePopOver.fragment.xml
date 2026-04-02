@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<MessagePopover
+		items="{appView>/messages}" 	groupItems="true"
+		initiallyExpanded="true">
+		<MessageItem
+			type="{appView>type}"
+			title="{appView>message}"
+			groupName="{appView>group}"
+			subtitle="{appView>additionalText}"
+			description="{appView>description}"/>
+	</MessagePopover>
+</core:FragmentDefinition>

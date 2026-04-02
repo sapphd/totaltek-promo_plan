@@ -1,0 +1,54 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+	contentWidth="40%"
+		noDataText="{i18n>spendTypeNoDataText}"
+		title="{i18n>spendTypeTitle}"
+		multiSelect="false"
+		rememberSelections="false"
+		search="handleVHSearch"
+		searchPlaceholder="{i18n>spendTypeSrchPlaceHolder}"
+		confirm="handleVHConfirm"
+		cancel="handleVHCancel"
+		showClearButton="true"
+		 
+		items="{
+			path : 'PromoPlan>/SpendSet',
+				parameters: {select: 'TacticId,TacticsDesc,SpendType,Description'}
+			 
+		}">
+		<ColumnListItem  >
+			<cells>
+			<Text text="{PromoPlan>TacticId}" />
+				<Text text="{PromoPlan>TacticsDesc}" />
+				 
+				<Text text="{PromoPlan>SpendType}" />
+				<Text text="{PromoPlan>Description}" />
+				 </cells>
+		</ColumnListItem>
+		<columns>
+		<Column width="3rem" >
+				<header>
+					<Text text="{i18n>tactics}" />
+				</header>
+			</Column>
+			<Column width="12rem">
+				<header>
+					<Text text="{i18n>tacticDesc}" />
+				</header>
+			</Column>
+			<Column  width="6rem">
+				<header>
+					<Text text="{i18n>spendType}" />
+				</header>
+			</Column>
+			<Column width="8rem">
+				<header>
+					<Text text="{i18n>description}" />
+				</header>
+			</Column>
+			 
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

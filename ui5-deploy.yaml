@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+specVersion: "3.1"
+metadata:
+  name: com.kcc.promoplan
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: DD4
+          url: http://sapdd4-virtual.kcc.com:60010
+          client: '200'
+        app:
+          name: ZTPM_UI5_PRPLAN
+          description: Promo Plan
+          package: ZTP4_PROMO_PLAN
+          transport: DD4K926073
+        exclude:
+          - /test/

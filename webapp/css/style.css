@@ -1,0 +1,15 @@
+/* Enter your custom styles here */
+
+html {
+    overflow-y: scroll !important;
+}
+.pnlBoldText.sapMText {
+  font-weight: bold !important;
+}
+ 
+
+
+[ data-colour="highlightBlueLabel" ] {
+    color: blue !important; /* Blue or any color */
+    font-weight: bold !important;
+}

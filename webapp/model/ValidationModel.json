@@ -1,0 +1,18 @@
+{
+
+    "SalesOrg": { "state": "Error", "text": "Please choose a Sales Organization" },
+    "DistChan": { "state": "Error", "text": "Please choose a Distribution Channel" },
+    "PromoPlanType": { "state": "Error", "text": "Please choose a Promotion Plan Type" },
+    "PromoDesc": { "state": "Error", "text": "Please Enter Promotion Description" },
+    "Status": { "state": "Error", "text": "Please select a Status" },
+    "FundPlan": { "state": "Error", "text": "Please select a Fund Plan" },
+   "SalesArea":{ "state": "Error", "text": "Please select a Sales Area" },
+    "InSoreDate":{ "state": "Error", "text": "Please select both start and end dates" },
+    "BuyingDate":{ "state": "Error", "text": "Please select both start and end dates" },
+    "Customer":{ "state": "Error", "text": "Please select Customer" },
+        "ProdcutSelection":{ "state": "Error", "text": "Please select Product" }
+
+    
+
+
+}

@@ -1,0 +1,305 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:f="sap.f"
+     xmlns:t="sap.ui.table"
+    xmlns:custom="com.kcc.promoplan.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+>
+    <fb:FilterBar
+        id="filterbar"
+        class="sapUiSmallMargin"
+        persistencyKey="myPersKey"
+        showClearOnFB="true"
+        clear="onFilterClear"
+        useToolbar="false"
+        search=".onSearch"
+        filterChange=".onFilterChange"
+        afterVariantLoad=".onAfterVariantLoad"
+    >
+        <fb:filterGroupItems>
+            <!-- Promotion ID -->
+            <fb:FilterGroupItem
+                name="EventPlanID"
+                label="{i18n>eventPlanId}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idPromotionVH"
+                        submit="onSearch"
+                        tokenUpdate="onSearch"
+                        valueHelpRequest="onPromoVH"
+                        suggestionItems="{
+				path: '/Plan_HeaderSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PlanId}"
+                            text="{Description}"
+                            additionalText="{PlanId}"
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Status -->
+            <fb:FilterGroupItem
+                name="Status"
+                label="{i18n>status}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idStatusVHFilterID"
+                          submit="onSearch"
+                        valueHelpRequest="onStatusVH"
+                        suggestionItems="{
+				path: 'PromoPlan>/StatusSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>Status}"
+                            text="{PromoPlan>Statusgroup}"
+                             additionalText="{PromoPlan>Status}"
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Promotion Type -->
+            <fb:FilterGroupItem
+                name="EventType"
+                label="{i18n>eventType}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idPrPlanTypeFilterID"
+                         submit="onSearch"
+                        valueHelpRequest="onPromoPlanTypeVH"
+                        suggestionItems="{
+				path: 'PromoPlan>/PromoPlanSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>PlanType}"
+                            text="{PromoPlan>Description}"
+                             additionalText="{PromoPlan>PlanType}"
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Spend Type -->
+            <fb:FilterGroupItem
+                name="SpendType"
+                label="{i18n>spendType}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idSpendTypeID"
+                         submit="onSearch"
+                        valueHelpRequest="onSpendTypeVH"
+                        suggestionItems="{
+				path: 'PromoPlan>/SpendSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>SpendType}"
+                            text="{PromoPlan>SpendMethod}"
+                             additionalText="{PromoPlan>SpendType}"
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Account (Planning Customer) -->
+            <fb:FilterGroupItem
+                name="PlanCustomer"
+                label="{i18n>planCustomer}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <custom:CustomerHierarchyLand
+                        
+                        flag="D"
+                       
+                        id="idPlanCustomerF"
+                        serviceUrl="/sap/opu/odata/sap/ZPRTP4_CUST_HIERARCHY_F4_SRV/"
+                        valueHelpEnabled="true"
+                        valueSelected="onValueSelected"
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Sales Organization -->
+            <fb:FilterGroupItem
+                name="SalesOrg"
+                label="{i18n>salesOrg}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idSalesOrgDBVHID"
+                        valueHelpRequest="onSalesOrgVH"
+                         submit="onSearch"
+                        suggestionItems="{
+				path: 'PromoPlan>/SalesOrgSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>SalesOrg}"
+                            text="{PromoPlan>Description}"
+                              additionalText="{PromoPlan>SalesOrg}"
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Buying Date -->
+            <fb:FilterGroupItem
+                name="BuyingDate"
+                label="{i18n>buyingDateF}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <DateRangeSelection
+                        delimiter="–"
+                        id="idBuyingDateF"
+                        width="100%"
+                        value="{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'dd/MM/yyyy'
+				},
+				'parts': [
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/start'
+					},
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/end'
+					}
+				]
+			}"
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Instore Date -->
+            <fb:FilterGroupItem
+                name="InstoreDate"
+                label="{i18n>instoreDateF}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <DateRangeSelection
+                        delimiter="–"
+                        id="idInstoreDateF"
+                        width="100%"
+                        value="{
+				'type': 'sap.ui.model.type.DateInterval',
+				'formatOptions': {
+					'pattern': 'dd/MM/yyyy'
+				},
+				'parts': [
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/start'
+					},
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/end'
+					}
+				]
+			}"
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Brand -->
+            <fb:FilterGroupItem
+                name="Brand"
+                label="{i18n>brand}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idBrandVH"
+                         submit="onSearch"
+                        valueHelpRequest="onBrandVH"
+                        suggestionItems="{
+				path: 'PromoPlan>/BrandSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>Domvalue}"
+                            text="{PromoPlan>Description}"
+                            additionalText="{PromoPlan>Domvalue}"
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Sub-Brand -->
+            <fb:FilterGroupItem
+                name="SubBrand"
+                label="{i18n>subBrand}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <MultiInput
+                        id="idSubbrandVH"
+                        valueHelpRequest="onSubBrandVH"
+                         submit="onSearch"
+                        suggestionItems="{
+				path: 'PromoPlan>/SubbrandSet' 
+			}"
+                    >
+                        <core:ListItem
+                            key="{PromoPlan>Subrand}"
+                            text="{PromoPlan>Subdesc}"
+                                                        additionalText="{PromoPlan>Subrand}"
+
+                        />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Product Hierarchy -->
+            <fb:FilterGroupItem
+                name="ProdHierarchy"
+                label="{i18n>productHierarchy}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                      <custom:ProductHierarchy
+                        id="idProductHeirarchyF"
+                        saId=""
+                        serviceUrl="/sap/opu/odata/sap/ZPRTP4_PROD_HIERARCHY_F4_SRV/"
+                        valueHelpEnabled="true"
+                        valueSelected="onValueSelected"
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+
+
+    
+</core:FragmentDefinition>

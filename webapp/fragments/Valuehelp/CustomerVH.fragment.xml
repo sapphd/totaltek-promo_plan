@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		noDataText="No Distribution Channel Found"
+		title="Select Distribution Channel"
+		multiSelect="false"
+		search="handleVHSearch"
+		searchPlaceholder="Search Distribution Channel"
+		confirm="handleVHConfirm"
+		cancel="handleVHCancel"
+		showClearButton="true"
+		items="{
+			path : 'PromoPlan>/DistChSet'
+			 
+		}">
+		<ColumnListItem  >
+			<cells>
+				 
+				<Text text="{PromoPlan>DistCh}" />
+				<Text text="{PromoPlan>Description}" />
+				 </cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="Distribution Channel" />
+				</header>
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<header>
+					<Text text="Description" />
+				</header>
+			</Column>
+			 
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

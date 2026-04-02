@@ -1,0 +1,276 @@
+<!-- 
+/************************************************************************ 
+ * Project               : Promo Plan
+ * Process               : TPM
+ * Task Code             : 
+ * Functional Document   : 
+ * Technical Document    :
+ _____________________________________________________________________________
+
+ * File       : controller/BaseController.js
+ * Author     : R73163
+ * Company    : KCC
+ * Created On : 2025-07-27
+ * Description: 
+  _____________________________________________________________________________
+
+ * Moddification no :
+ * Project          :            
+ * Author           :  
+  _____________________________________________________________________________
+
+ * Moddification Date :
+ * Transport Order    :            
+ * Change Request     :  
+ * Description
+ ************************************************************************
+-->
+<mvc:View
+    controllerName="com.kcc.promoplan.controller.PromoPlan"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <ObjectPageLayout
+    sectionChange="onPromoSectionChange"
+        id="idCreatePromoPlanOPL"
+        alwaysShowContentHeader="true"
+        useIconTabBar="true"
+        headerContentPinnable="false"
+        preserveHeaderStateOnScroll="true"
+        showFooter="{appView>/showFooter}"
+        enableLazyLoading="true"
+        upperCaseAnchorBar="false"
+        showTitleInHeaderContent="true"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title
+                        text="{= ${appView>/isNewMode} ? '* ' + ${PlanHeader>/Description} : ${PlanHeader>/Description} }"
+                        wrapping="true"
+                    />
+                </expandedHeading>
+
+                <expandedContent>
+                    <m:Text text="{PlanHeader>/PlanType}" />
+                </expandedContent>
+
+                <actions>
+
+                <m:Button type="Accept"
+                visible="false"
+						text="Rel Accural" enabled="{= ${PlanHeader>/Status} !== 'CONC' }"
+						press="onRelAccuralPress">
+                        </m:Button>
+  <m:Button  
+						text="Close"  visible="{= ${PlanHeader>/CLS} === 'X' }"
+						press="onClosePress">
+ 					 
+				</m:Button>
+                <m:Button type="Reject"   visible="{= ${PlanHeader>/CAN} === 'X' }"
+						text="Cancel"
+						press="onCancelRequested">
+ 					 
+				</m:Button>
+				<m:Button type="Reject"   
+                 visible="{= ${PlanHeader>/STE} === 'X' }"
+             
+						text="Stop Early"
+						press="onStopEarlyPress">
+ 					 
+				</m:Button>
+              
+				
+ 			 
+                    <m:Button
+                        text="Edit"
+                        type="Emphasized"
+                        press="onEditPress"
+                        visible="{= ${PlanHeader>/OP_IND} === 'E' }"
+                        
+                         
+                    />
+                </actions>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:HBox
+                justifyContent="SpaceBetween"
+                width="100%"
+            >
+                <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                    <m:ObjectAttribute
+                        title="{i18n>planCustomer}"
+                        text="{PlanHeader>/PlanCustomer}"
+                    />
+                    <m:ObjectAttribute
+                        title="{i18n>eventType}"
+                        text="{PlanHeader>/PlanType} - {PlanHeader>/PlanTypeDesc}"
+                    />
+                    <m:ObjectAttribute
+                        title="{i18n>salesOrg}"
+                        text="{PlanHeader>/Vkorg} - {PlanHeader>/VkorgDesc}"
+                    />
+                </layout:VerticalLayout>
+                <layout:VerticalLayout>
+                    <m:ObjectAttribute title="{i18n>status}" />
+                    <m:ObjectStatus
+                        text="{PlanHeader>/Status}"
+                        state="Success"
+                    />
+
+                      
+
+
+                    
+                </layout:VerticalLayout>
+            </m:HBox>
+        </headerContent>
+
+        <sections>
+            <!-- General Data Section -->
+
+            <ObjectPageSection
+                title="{i18n>generalData}"
+                id="idGeneralDataSection"
+            >
+                <ObjectPageSubSection>
+                    <blocks>
+                        <core:Fragment
+                            fragmentName="com.kcc.promoplan.fragments.GeneralData.GeneralData"
+                            type="XML"
+                        />
+                        <core:Fragment
+                            fragmentName="com.kcc.promoplan.fragments.GeneralData.GeneralDataDisplay"
+                            type="XML"
+                        />
+                    </blocks>
+                </ObjectPageSubSection>
+            </ObjectPageSection>
+
+            <ObjectPageSection
+                title="{i18n>planHeader}"
+                id="idPlanHeaderSection"
+            >
+                <ObjectPageSubSection>
+                    <blocks>
+                        <core:Fragment
+                            fragmentName="com.kcc.promoplan.fragments.PlanHeader.PlanHeader"
+                            type="XML"
+                        />
+
+                        <core:Fragment
+                            fragmentName="com.kcc.promoplan.fragments.PlanHeader.PlanHeaderDisplay"
+                            type="XML"
+                        />
+                    </blocks>
+                </ObjectPageSubSection>
+            </ObjectPageSection>
+
+            <ObjectPageSection  title="{i18n>planning}">
+                <ObjectPageSubSection>
+                    <blocks>
+                        <core:Fragment
+                            class="sapUiSmallMarginTop"
+                            fragmentName="com.kcc.promoplan.fragments.Planning.Planning"
+                            type="XML"
+                        />
+                        <core:Fragment
+                            class="sapUiSmallMarginTop"
+                            fragmentName="com.kcc.promoplan.fragments.Planning.PlanningDisplay"
+                            type="XML"
+                        />
+                    </blocks>
+                </ObjectPageSubSection>
+
+                 
+
+                
+            </ObjectPageSection>
+             <ObjectPageSection title="{i18n>volumePerWeek}">
+                <ObjectPageSubSection>
+                    <blocks>
+                        <core:Fragment
+                            class="sapUiSmallMarginTop"
+                            fragmentName="com.kcc.promoplan.fragments.VolumePerWeek.VolumePerWeek"
+                            type="XML"
+                        />
+                          <core:Fragment
+                            class="sapUiSmallMarginTop"
+                            fragmentName="com.kcc.promoplan.fragments.VolumePerWeek.VolumePerWeekDisplay"
+                            type="XML"
+                        />
+                    </blocks>
+                </ObjectPageSubSection>
+            </ObjectPageSection>
+     <ObjectPageSection title="{i18n>comments}" visible="{= ${PlanHeader>/PlanId} !== '' }">
+                <ObjectPageSubSection id="commentsSubSection" title="{i18n>comments}">
+                    <blocks>
+                        <core:Fragment fragmentName="com.kcc.promoplan.fragments.Comments.Comments" type="XML" />
+                    </blocks>
+                </ObjectPageSubSection>
+            </ObjectPageSection>
+            <ObjectPageSection title="{i18n>promoPNL}" visible="{= ${PlanHeader>/PlanId} !== '' }"
+>
+                <ObjectPageSubSection>
+                    <blocks>
+                        <core:Fragment
+                            class="sapUiSmallMarginTop"
+                            fragmentName="com.kcc.promoplan.fragments.Planning.PromoPNL"
+                            type="XML"
+                        />
+                    </blocks>
+                </ObjectPageSubSection>
+            </ObjectPageSection>
+
+            <ObjectPageSection id="idchangelogsection" title="{i18n>changeLog}">
+                <ObjectPageSubSection id="changeLogSection" title="{i18n>changeLog}" visible="{= !${viewModel>/isNewMode} }">
+                    <blocks>
+                        <core:Fragment fragmentName="com.kcc.promoplan.fragments.ChangeLog.changeLog" type="XML" />
+                    </blocks>
+                </ObjectPageSubSection>
+            </ObjectPageSection>
+           
+           
+
+           
+        </sections>
+
+        <footer>
+            <m:OverflowToolbar>
+            <m:Button id="messageViewBtn"
+            	visible="{=!!${appView>/messages}.length}"
+             
+					icon="sap-icon://message-error"
+					type="Reject"
+					text= "{=${appView>/messages}.length}"
+					press="handleMessageViewPress"/>
+				
+                <m:ToolbarSpacer />
+                <m:Button
+                    text="Save"
+                    visible="{= ${appView>/isEditMode} === true }"
+                    type="Emphasized"
+                    press="onSavePress"
+                />
+                <m:Button
+                    text="Submit"
+                    visible="{= ${appView>/isNewMode} === true }"
+                    type="Accept"
+                    press="onSubmitPress"
+                />
+                <m:Button
+                    text="Cancel"
+                    type="Transparent"
+                    press="onCancelPress"
+                />
+            </m:OverflowToolbar>
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

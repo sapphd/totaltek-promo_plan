@@ -1,0 +1,250 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.kcc.promoplan",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.3",
+      "toolsId": "3045f138-de0d-49ae-88c1-c1ef91665223"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZSRV_TP4_PLAN_HDR/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "PromoCopy": {
+        "uri": "/sap/opu/odata/sap/ZPRTP4_PLAN_COPY_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/PromoCopy/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "PromoPlan": {
+        "uri": "/sap/opu/odata/sap/ZSRV_TP4_PROMO_PLAN/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "ZPRTP4_PROMO_PLAN_ANNO_MDL",
+            "annotation0"
+          ],
+          "localUri": "localService/PromoPlan/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "CommentsService": {
+        "uri": "/sap/opu/odata/sap/ZTP4_API_COMMENTS_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/CommentsService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "annotation0": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation0.xml",
+        "settings": {
+          "localUri": "annotations/annotation0.xml"
+        }
+      },
+      "ZPRTP4_PROMO_PLAN_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZPRTP4_PROMO_PLAN_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/PromoPlan/ZPRTP4_PROMO_PLAN_ANNO_MDL.xml"
+        }
+      },
+      "APS_CHANGE_DOCUMENTS_ANNO_MDL": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='APS_CHANGE_DOCUMENTS_ANNO_MDL',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/APS_CHANGE_DOCUMENTS_SRV/APS_CHANGE_DOCUMENTS_ANNO_MDL.xml"
+        }
+      },
+      "ChangeDocumentsService": {
+        "uri": "/sap/opu/odata/sap/APS_CHANGE_DOCUMENTS_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "APS_CHANGE_DOCUMENTS_ANNO_MDL"
+          ],
+          "localUri": "localService/APS_CHANGE_DOCUMENTS_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "fullWidth": true,
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.138.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.kcc.promoplan.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultCountMode": "Inline"
+        }
+      },
+      "PromoPlan": {
+        "dataSource": "PromoPlan",
+        "preload": true,
+        "settings": {}
+      },
+      "PromoCopy": {
+        "dataSource": "PromoCopy",
+        "preload": true,
+        "settings": {}
+      },
+      "PlanHeader": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/PlanHeader.json",
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
+      },
+      "PNL": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/PromoPNL.json",
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
+      },
+      "appView": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/AppView.json",
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
+      },
+      "Comments": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "useBatch": true,
+          "refreshAfterChange": true,
+          "defaultCountMode": "Inline"
+        },
+        "dataSource": "CommentsService",
+        "preload": false
+      },
+      "validation": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/ValidationModel.json",
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
+      },
+      "ChangeDocuments": {
+        "dataSource": "ChangeDocumentsService",
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "preload": false,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "useBatch": true,
+          "refreshAfterChange": true,
+          "defaultCountMode": "Inline"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "com.kcc.promoplan.view",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "Dashboard",
+          "target": "Dashboard"
+        },
+        {
+          "pattern": "PromoPlan/{id}",
+          "name": "PromoPlanDetail",
+          "target": "PromoPlanDetail"
+        },
+        {
+          "pattern": "PromoPlan",
+          "name": "PromoPlanCreate",
+          "target": "PromoPlanDetail"
+        }
+      ],
+      "targets": {
+        "Dashboard": {
+          "viewName": "Dashboard",
+          "viewId": "1"
+        },
+        "PromoPlanDetail": {
+          "viewName": "PromoPlan",
+          "viewId": "2"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.kcc.promoplan.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}
