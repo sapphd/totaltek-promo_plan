@@ -2119,6 +2119,37 @@ _volumeTableDynamicColumns: function (oVolume) {
 
 		},
 
+		onPNLTblRowUpdated: function () {
+			var oTable = this.byId("idPNLMetric");
+			var aRows = oTable.getRows();
+			var blueRows = ["Net Sales", "Gross Profit", "Trade Spend"];
+
+			aRows.forEach(function (oRow) {
+				var oContext = oRow.getBindingContext("appView");
+				if (!oContext) return;
+				var sName = oContext.getProperty("name");
+				var nDelta = parseFloat(oContext.getProperty("D")) || 0;
+				var aCells = oRow.getCells();
+
+				aCells.forEach(function (oCell) {
+					oCell.removeStyleClass("blueText");
+					oCell.removeStyleClass("greenText");
+					oCell.removeStyleClass("redText");
+				});
+
+				if (blueRows.indexOf(sName) !== -1) {
+					aCells.forEach(function (oCell) {
+						oCell.addStyleClass("blueText");
+					});
+				} else if (sName === "ROI") {
+					aCells[0].addStyleClass("blueText");
+					if (aCells[3]) {
+						aCells[3].addStyleClass(nDelta >= 0 ? "greenText" : "redText");
+					}
+				}
+			});
+		},
+
 		onSelectionChange: function (oEvent) {
 
 			var oPlanHeaderModel = this.getView().getModel("PlanHeader");
@@ -2289,15 +2320,15 @@ _volumeTableDynamicColumns: function (oVolume) {
 					const finalArray = Object.keys(fieldDescriptions).map(field => {
 
 						if (field !== "Uom") {
-							const N = sumN[field] || 0;
-							const Y = sumY[field] || 0;
-							const D = Y - N;
+							const N = parseFloat((sumN[field] || 0).toFixed(2));
+							const Y = parseFloat((sumY[field] || 0).toFixed(2));
+							const D = parseFloat((Y - N).toFixed(2));
 
 							return {
 								name: fieldDescriptions[field] || "",
 								N: N,
 								Y: Y,
-								D: (D % 1 !== 0) ? Number(D).toFixed(2) : Number(D).toFixed(0)
+								D: D
 							};
 						}
 						else {
@@ -2335,7 +2366,7 @@ const roiRow = {
     name: "ROI",
     N: "",
     Y: "",
-    D: isFinite(roiD) ? roiD.toFixed(2) : "0"
+    D: isFinite(roiD) ? parseFloat((roiD * 100).toFixed(2)) + "%" : "0"
 };
 
 // 👉 Find index of "Retailer Price"

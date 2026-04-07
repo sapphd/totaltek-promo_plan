@@ -13,3 +13,18 @@ html {
     color: blue !important; /* Blue or any color */
     font-weight: bold !important;
 }
+
+.blueText {
+    color: #0854a0 !important;
+    font-weight: bold !important;
+}
+
+.greenText {
+    color: #107e3e !important;
+    font-weight: bold !important;
+}
+
+.redText {
+    color: #bb0000 !important;
+    font-weight: bold !important;
+}
