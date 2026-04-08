@@ -2105,18 +2105,21 @@ _volumeTableDynamicColumns: function (oVolume) {
 		sumByPromoted: function (promotedValue, data) {
 			const filtered = data.filter(item => item.Promoted === promotedValue);
 			const result = {};
-
+			const count = {};
 			filtered.forEach(item => {
 				for (const key in item) {
 					if (["Promoted", "Yearweek", "ItemNo", "PlanId", "Week"].includes(key)) continue;
 					if (isNaN(Number(item[key]))) continue;
-
 					result[key] = (result[key] || 0) + Number(item[key]);
+					count[key] = (count[key] || 0) + 1;
 				}
 			});
-
+			result._avg = {};
+			for (var key in result) {
+				if (key === "_avg") continue;
+				result._avg[key] = count[key] ? parseFloat((result[key] / count[key]).toFixed(2)) : 0;
+			}
 			return result;
-
 		},
 
 		onPNLTblRowUpdated: function () {
@@ -2282,6 +2285,20 @@ _volumeTableDynamicColumns: function (oVolume) {
 					const sumN = that.sumByPromoted("N", oData.results); // Non-Promoted
 					const sumY = that.sumByPromoted("Y", oData.results); // Promoted
 
+					sumN._avg.Profit = parseFloat((sumN._avg.Profit * 100).toFixed(2));
+					sumY._avg.Profit = parseFloat((sumY._avg.Profit * 100).toFixed(2));
+
+					sumN._avg.RetailMarginPrc = parseFloat((sumN._avg.RetailMarginPrc * 100).toFixed(2));
+					sumY._avg.RetailMarginPrc = parseFloat((sumY._avg.RetailMarginPrc * 100).toFixed(2));	
+
+					sumN.Profit = sumN._avg.Profit;
+					sumY.Profit = sumY._avg.Profit;
+					sumN.RetailMarginPrc = sumN._avg.RetailMarginPrc;
+					sumY.RetailMarginPrc = sumY._avg.RetailMarginPrc;
+					sumN.Price = sumN._avg.Price;
+					sumY.Price = sumY._avg.Price;
+					sumN.RetailerRoi = sumN._avg.RetailerRoi;
+					sumY.RetailerRoi = sumY._avg.RetailerRoi;
 					// Map of field descriptions
 					const fieldDescriptions = {
 						Volume: "Volume",
@@ -2311,7 +2328,8 @@ _volumeTableDynamicColumns: function (oVolume) {
 						RetailSales: "Retailer Sales",
 						RetailInvestment: "Retail Investment",
 						RetailMargin: "Retail Margin $",
-						RetailMarginPrc: "Retail Margin %"
+						RetailMarginPrc: "Retail Margin %",
+						RetailerRoi: "Retailer ROI"
 
 					};
 
@@ -2319,7 +2337,16 @@ _volumeTableDynamicColumns: function (oVolume) {
 
 					const finalArray = Object.keys(fieldDescriptions).map(field => {
 
-						if (field !== "Uom") {
+						if (field === "RetailerRoi") {
+							const N = parseFloat((sumN[field] || 0).toFixed(2));
+							return {
+								name: fieldDescriptions[field] || "",
+								N: "",
+								Y: "",
+								D: N
+							};
+						}
+						else if (field !== "Uom") {
 							const N = parseFloat((sumN[field] || 0).toFixed(2));
 							const Y = parseFloat((sumY[field] || 0).toFixed(2));
 							const D = parseFloat((Y - N).toFixed(2));

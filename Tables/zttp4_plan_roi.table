@@ -1,0 +1,27 @@
+@EndUserText.label : 'Trade Promotion ROI Planning'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zttp4_plan_roi {
+
+  key mandt      : mandt not null;
+  key plan_id    : zde_plan_id not null;
+  key item_no    : zde_item_no not null;
+  key yearweek   : zde_year_week not null;
+  @Semantics.amount.currencyCode : 't001.waers'
+  baseline       : zde_baseline_vol;
+  @Semantics.amount.currencyCode : 't001.waers'
+  uplift         : zde_uplift;
+  totalvolume    : zde_total_vol;
+  uom            : kmein;
+  nonpromoprofit : zde_nonpromo_profit;
+  promoprofit    : zde_promo_profit;
+  @Semantics.amount.currencyCode : 't001.waers'
+  tp_expense     : zde_amount;
+  @Semantics.amount.currencyCode : 't001.waers'
+  cp_expense     : zde_amount;
+  roi            : zde_roi;
+  retail_roi     : zde_retail_roi;
+
+}

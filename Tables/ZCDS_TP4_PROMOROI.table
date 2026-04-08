@@ -1,0 +1,49 @@
+/****************************************************************
+* Project   :  TP4                                              *
+* RICEFW ID:                                                    *
+* SCA ID   :   SCA ID – XXXX                                    *
+*                                                               *
+* CDS Entity : ZCDS_TP4_PromoPlan                               *
+*                                                               *
+* Description: This CDS view entity is used to fetch Promo Plan *
+*              General Configuration and  Promo Plan General    *
+*              Configuration Text data                          *
+*                                                               *
+* Created By : Sangeeta Singh/R73078                            *
+* Created Date: 28-07-2025                                      *
+* Transport Request: DD4K915363                                 *
+****************************************************************/
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Promo Plan General Configuration'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZCDS_TP4_PROMOROI
+  as select from zttp4_plan_roi
+   as ROI
+{
+key plan_id as PlanId,
+key item_no as ItemNo,
+key yearweek as Yearweek,
+@Semantics.amount.currencyCode: 'Currency'
+baseline as Baseline,
+@Semantics.amount.currencyCode: 'Currency'
+uplift as Uplift,
+totalvolume as Totalvolume,
+uom as Uom,
+nonpromoprofit as Nonpromoprofit,
+promoprofit as Promoprofit,
+@Semantics.amount.currencyCode: 'Currency'
+tp_expense as TpExpense,
+@Semantics.amount.currencyCode: 'Currency'
+cp_expense as CpExpense,
+roi as Roi,
+retail_roi as RetailerRoi,
+cast( 'USD' as abap.cuky( 5 )  )as Currency
+
+}

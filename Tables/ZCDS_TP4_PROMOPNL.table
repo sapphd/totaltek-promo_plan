@@ -1,0 +1,97 @@
+/****************************************************************
+* Project   :  TP4                                              *
+* RICEFW ID:                                                    *
+* SCA ID   :   SCA ID – XXXX                                    *
+*                                                               *
+* CDS Entity : ZCDS_TP4_PromoPlan                               *
+*                                                               *
+* Description: This CDS view entity is used to fetch Promo Plan *
+*              General Configuration and  Promo Plan General    *
+*              Configuration Text data                          *
+*                                                               *
+* Created By : Sangeeta Singh/R73078                            *
+* Created Date: 28-07-2025                                      *
+* Transport Request: DD4K915363                                 *
+****************************************************************/
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Promo Plan General Configuration'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZCDS_TP4_PROMOPNL
+  as select from zttp4_plan_pnl
+   as PNL
+  left outer join zttp4_plan_roi as ROI
+    on PNL.plan_id  = ROI.plan_id
+   and PNL.item_no  = ROI.item_no
+   and PNL.yearweek = ROI.yearweek
+{
+key PNL.plan_id as PlanId,
+key PNL.item_no as ItemNo,
+key PNL.yearweek as Yearweek,
+key PNL.promoted as Promoted,
+@Semantics.quantity.unitOfMeasure: 'Uom'
+PNL.volume as Volume,
+PNL.uom as Uom,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.gross_sales as GrossSales,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.edlp as Edlp,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.edlp_discount as EdlpDiscount,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.lta_disc_oi as LtaDiscOi,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.cp_disc_oi as CpDiscOi,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.tp_disco_oi as TpDiscoOi,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.logistic_disc_oi as LogisticDiscOi,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.financial_disc_oi as FinancialDiscOi,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.others_oi as OthersOi,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.niv as Niv,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.lta_disc_def as LtaDiscDef,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.tp_disc_def as TpDiscDef,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.cp_disc_def as CpDiscDef,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.logistic_disc_def as LogisticDiscDef,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.financial_disc_def as FinancialDiscDef,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.others_def as OthersDef,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.net_sales as NetSales,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.cogs as Cogs,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.distribution as Distribution,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.gross_profit as GrossProfit,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.profit as Profit,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.price               as Price,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.retail_price        as RetailPrice,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.retail_sales        as RetailSales,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.retail_investment   as RetailInvestment,
+@Semantics.amount.currencyCode: 'Currency'
+PNL.retail_margin       as RetailMargin,
+
+PNL.retail_margin_prc   as RetailMarginPrc,
+ROI.retail_roi          as RetailerRoi,
+cast( 'USD' as abap.cuky( 5 )  )as Currency
+}
