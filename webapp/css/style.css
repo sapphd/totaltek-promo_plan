@@ -28,3 +28,21 @@ html {
     color: #bb0000 !important;
     font-weight: bold !important;
 }
+
+.greenBadge {
+    background-color: #107e3e !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    display: inline-block !important;
+}
+
+.redBadge {
+    background-color: #bb0000 !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    display: inline-block !important;
+}

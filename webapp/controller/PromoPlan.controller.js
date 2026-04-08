@@ -2138,16 +2138,18 @@ _volumeTableDynamicColumns: function (oVolume) {
 					oCell.removeStyleClass("blueText");
 					oCell.removeStyleClass("greenText");
 					oCell.removeStyleClass("redText");
+					oCell.removeStyleClass("greenBadge");
+					oCell.removeStyleClass("redBadge");
 				});
 
 				if (blueRows.indexOf(sName) !== -1) {
 					aCells.forEach(function (oCell) {
 						oCell.addStyleClass("blueText");
 					});
-				} else if (sName === "ROI") {
+				} else if (sName === "ROI" || sName === "Retailer ROI") {
 					aCells[0].addStyleClass("blueText");
 					if (aCells[3]) {
-						aCells[3].addStyleClass(nDelta >= 0 ? "greenText" : "redText");
+						aCells[3].addStyleClass(nDelta >= 0 ? "greenBadge" : "redBadge");
 					}
 				}
 			});
