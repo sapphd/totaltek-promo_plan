@@ -2161,39 +2161,76 @@ CLASS ZOCL_TP4_PLAN_HDR_DPC_EXT IMPLEMENTATION.
 
     DATA: lr_vkorg         TYPE RANGE OF zttp4_calendar-vkorg.
 
+    "Data declarations
+    DATA: lt_vkorg     TYPE RANGE OF vkorg,
+          lt_vtweg     TYPE RANGE OF vtweg,
+          lt_start_day TYPE RANGE OF  zde_start_date,
+          lt_end_day   TYPE RANGE OF  zde_end_date,
+          lt_filter    TYPE /iwbep/t_mgw_select_option.
+
+
+    lt_filter = it_filter_select_options.
+
+    LOOP AT lt_filter ASSIGNING FIELD-SYMBOL(<lfs_filter>).
+      CASE <lfs_filter>-property.
+
+        WHEN 'Vkorg'.
+          "Fill Sales Organization filter values
+          lt_vkorg = CORRESPONDING #( <lfs_filter>-select_options ).
+
+        WHEN 'Vtweg'.
+          "Fill Distribution Channel filter values
+          lt_vtweg = CORRESPONDING #( <lfs_filter>-select_options ).
+
+        WHEN 'StartDay'.
+          "Fill Plan Type filter values
+          lt_start_day = CORRESPONDING #( <lfs_filter>-select_options ).
+
+        WHEN 'EndDay'.
+          "Fill Plan Type filter values
+          lt_end_day = CORRESPONDING #( <lfs_filter>-select_options ).
+
+
+      ENDCASE.
+    ENDLOOP.
+
+
     SELECT mandt, vkorg, vtweg, yearweek, split_week, start_day, end_day, cal_year, cal_month, screen_col FROM zttp4_calendar
       INTO CORRESPONDING FIELDS OF TABLE @lt_calendar
-     WHERE vkorg IN @lr_vkorg.
+     WHERE vkorg IN @lt_vkorg
+       AND vtweg IN @lt_vtweg
+       AND end_day IN @lt_start_day
+       AND start_day IN @lt_end_day.
 
-    IF sy-subrc = 0.
-      LOOP AT lt_calendar INTO ls_calendar.
-        MOVE-CORRESPONDING ls_calendar TO ls_entity.
-        APPEND ls_entity TO et_entityset.
-      ENDLOOP.
-    ENDIF.
-
-    IF  it_filter_select_options[] IS NOT INITIAL.
-      me->entityset_filter(
-        EXPORTING
-          it_filter_select_options = it_filter_select_options                " table of select options
-          iv_entity_name           = iv_entity_name
-        CHANGING
-          ct_entityset             = et_entityset
-      ).
-    ELSE.
-
-*     LOOP AT lt_calendar INTO ls_calendar.
+*    IF sy-subrc = 0.
+*      LOOP AT lt_calendar INTO ls_calendar.
 *        MOVE-CORRESPONDING ls_calendar TO ls_entity.
 *        APPEND ls_entity TO et_entityset.
 *      ENDLOOP.
-      lob_filter = io_tech_request_context->get_filter( ).
-      lt_select_option = lob_filter->get_filter_select_options( ).
-      lv_wstrg = lob_filter->get_filter_string( ).
-
-      SELECT mandt, vkorg, vtweg, yearweek, split_week, start_day, end_day, cal_year, cal_month, screen_col
-        FROM zttp4_calendar
-        INTO CORRESPONDING FIELDS OF TABLE @lt_calendar
-        WHERE (lv_wstrg).
+*    ENDIF.
+*
+*    IF  it_filter_select_options[] IS NOT INITIAL.
+*      me->entityset_filter(
+*        EXPORTING
+*          it_filter_select_options = it_filter_select_options                " table of select options
+*          iv_entity_name           = iv_entity_name
+*        CHANGING
+*          ct_entityset             = et_entityset
+*      ).
+*    ELSE.
+*
+**     LOOP AT lt_calendar INTO ls_calendar.
+**        MOVE-CORRESPONDING ls_calendar TO ls_entity.
+**        APPEND ls_entity TO et_entityset.
+**      ENDLOOP.
+*      lob_filter = io_tech_request_context->get_filter( ).
+*      lt_select_option = lob_filter->get_filter_select_options( ).
+*      lv_wstrg = lob_filter->get_filter_string( ).
+*
+*      SELECT mandt, vkorg, vtweg, yearweek, split_week, start_day, end_day, cal_year, cal_month, screen_col
+*        FROM zttp4_calendar
+*        INTO CORRESPONDING FIELDS OF TABLE @lt_calendar
+*        WHERE (lv_wstrg).
 
       IF sy-subrc = 0.
         CLEAR: ls_entity,et_entityset.
@@ -2202,7 +2239,7 @@ CLASS ZOCL_TP4_PLAN_HDR_DPC_EXT IMPLEMENTATION.
           APPEND ls_entity TO et_entityset.
         ENDLOOP.
       ENDIF.
-    ENDIF.
+*    ENDIF.
 
   ENDMETHOD.
 

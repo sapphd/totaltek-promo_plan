@@ -1171,11 +1171,11 @@ sap.ui.define([
 
 			//  fixed column metadata
 			var aFixedColumns = [
-				{ key: "Brand", label: "Brand", type: "text" },
-				{ key: "Subbrand", label: "Sub Brand", type: "text" },
-				{ key: "Matnr", label: "Selling SKU", type: "text" },
-				{ key: "Prodh", label: "Product Hierarchy", type: "text" },
-				{ key: "VolType", label: "Type", type: "text" }
+				{ key: "Brand", label: "Brand", type: "text", width: "8rem" },
+				{ key: "Subbrand", label: "Sub Brand", type: "text", width: "8rem" },
+				{ key: "Matnr", label: "Selling SKU", type: "text", width: "10rem" },
+				{ key: "Prodh", label: "Product Hierarchy", type: "text", width: "10rem" },
+				{ key: "VolType", label: "Type", type: "text", width: "8rem" }
 			];
 
 			// Create columns dynamically
@@ -1186,6 +1186,7 @@ sap.ui.define([
 				var oColumn = new UIColumn({
 					hAlign: (col.key === "Total") ? "End" : "Begin",
 					visible: bVisible,
+					width: col.width,
 					label: new Label({ text: col.label }),
 					template: col.type === "input"
 						? new Input({
@@ -1251,6 +1252,7 @@ sap.ui.define([
 				var oColumnDis = new UIColumn({
 					hAlign: (col.key === "Total") ? "End" : "Begin",
 					visible: bVisible,
+					width: col.width,
 					label: new Label({ text: col.label }),
 					template:
 						new Label({
@@ -1308,6 +1310,7 @@ sap.ui.define([
 			var oTotalColumn = new UIColumn({
 				hAlign: "End",
 				visible: true,
+				width: "7rem",
 				label: new Label({ text: "Total" }),
 				template: new sap.m.HBox({
 					width: "100%",
@@ -1357,6 +1360,7 @@ sap.ui.define([
 
 			var oTotalColumnDis = new UIColumn({
 				hAlign: "End",
+				width: "7rem",
 				label: new Label({ text: "Total" }),
 				template: new Label({
 					textAlign: "End",
@@ -1403,6 +1407,7 @@ sap.ui.define([
 				oTable.addColumn(new UIColumn({
 					hAlign: "End",
 					visible: false,
+					width: "6rem",
 					label: new Label({ text: "Week " + i }),
 					template: new sap.m.HBox({
 						width: "100%",
@@ -1446,6 +1451,7 @@ sap.ui.define([
 				oTableDis.addColumn(new UIColumn({
 					hAlign: "End",
 					visible: false,
+					width: "6rem",
 					label: new Label({ text: "Week " + i }),
 					template: new Label({
 						textAlign: "End",

@@ -10,6 +10,7 @@
  
     <table:Table rows="{VolumeModel>/}" alternateRowColors="true" id="idVolumePerWeek"   selectionMode="None"  visible="{= ${appView>/isNewMode} || ${appView>/isEditMode} }"
         enableBusyIndicator="true"
+        fixedColumnCount="2"
         firstVisibleRow="5">
       
     </table:Table>

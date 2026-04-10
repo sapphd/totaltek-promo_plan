@@ -128,14 +128,13 @@ sap.ui.define([], function () {
         formatDateRange: function (dateFrom, dateTo) {
             if (!dateFrom || !dateTo) return "";
 
+            var dFrom = new Date(dateFrom);
+            var dTo = new Date(dateTo);
+            if (dFrom.getFullYear() < 1970 || dTo.getFullYear() < 1970) return "";
+
             const oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "dd/MM/yyyy" });
 
-
-
-            const sFrom = oDateFormat.format(new Date(dateFrom));
-            const sTo = oDateFormat.format(new Date(dateTo));
-
-            return `${sFrom} - ${sTo}`;
+            return oDateFormat.format(dFrom) + " - " + oDateFormat.format(dTo);
         },
 
 
