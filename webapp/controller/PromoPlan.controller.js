@@ -23,7 +23,7 @@
  *-----------------------------------------------------------------------
  ************************************************************************/
 
-sap.ui.define([
+ sap.ui.define([
 	"com/kcc/promoplan/controller/BaseController",
 	'sap/ui/model/json/JSONModel',
 	"sap/m/MessageToast",
@@ -2961,10 +2961,16 @@ const discountFields = [
 				var nTotalSales = nNetCost * volumePlanned;
 				oModel.setProperty(oPath + "/SalesPlanned", nTotalSales.toString());
 
-
 			}
 
 			this.updateSummaryRow();
+
+		//    if (this._validateSections(this)) {
+		//		this._handlePlanHeader("update");
+		//	}
+		//	else {
+		//		this.getView().getModel("appView").setProperty("/ErrorBtnVisible", true);
+		//	}
 
 		},
 
@@ -3082,7 +3088,6 @@ const discountFields = [
 
 
 			}
-			this.updateSummaryRow();
 		},
 
 		onSalesCostChange: function (oEvent) {
